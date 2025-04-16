@@ -30,7 +30,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav me-auto">
                 @php
                     $modules = null;
                     if (Auth()->user()->role == 'Administrador') {
@@ -47,7 +47,9 @@
                         </a>
                     </li>
                 @endforeach
-                <li  class="nav-item">
+            </ul>
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
                     <a class="nav-link active" style="color: rgb(65, 77, 43)" href="{{route('logout')}}">
                         <i class='bx bxs-x-circle'></i> Cerrar Sesión
                     </a>

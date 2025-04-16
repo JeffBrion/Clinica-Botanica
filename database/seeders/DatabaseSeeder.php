@@ -32,6 +32,12 @@ class DatabaseSeeder extends Seeder
                 'access_route_name' => 'items.index',
                 'icon' => 'bx bx-box nav_icon',
             ],
+            [
+                'name' => 'Proveedores',
+                'internal_name' => 'providers',
+                'access_route_name' => 'providers.index',
+                'icon' => 'bx bx-store nav_icon',
+            ],
         ];
 
         foreach ($modules as $module) {
