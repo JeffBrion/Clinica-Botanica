@@ -1,1 +1,1 @@
-Este proyecto es una plantilla de laravel que sirva como base para futuros proyectos
+Sistema de inventario para farmacia Botanica Diagno-Salud
