@@ -15,15 +15,18 @@ class CategoryServices
 
         return $category;
     }
-    public static function updateCategory($category, $request)
+    public static function updateCategory($request, Category $category)
     {
-        $category->update([
-            'name' => $request['name'],
-            'description' => $request['description'],
-        ]);
+        $category->name = $request['name'];
+        $category->description = $request['description'];
 
-        return $category;
+        if ($category->save()) {
+            return $category;
+        }
+
+        return null;
     }
+
     public static function deleteCategory($category)
     {
         $category->delete();

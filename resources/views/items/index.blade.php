@@ -16,7 +16,7 @@
                         <input type="text" name="name" id="name" class="form-control" required>
                     </div>
                     <div class="form-group col-md-6 mt-3">
-                        <label for="name">Descripción</label>
+                        <label for="description">Descripción</label>
                         <input type="text" name="description" id="description" class="form-control" required>
                     </div>
                     <div class="form-group col-md-6 mt-3">
@@ -28,9 +28,13 @@
                         </select>
                     </div>
                     <div class="form-group col-md-6 mt-3">
-                        <label for="name">Precio</label>
+                        <label for="price">Precio</label>
                         <input type="number" name="price" id="price" class="form-control" required>
-                    </div>         
+                    </div> 
+                    <div class="form-group col-md-6 mt-3">
+                        <label for="code">Código</label>
+                        <input type="text" name="code" id="code" class="form-control" required>
+                    </div>           
                     <div class="col-md-12 mt-2">
                         <button type="submit" class="btn btn-outline-secondary">Agregar</button>
                     </div>

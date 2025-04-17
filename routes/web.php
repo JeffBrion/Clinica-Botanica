@@ -7,9 +7,9 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PanelController;
 
 use App\Http\Controllers\Users\UsersController;
-
 use App\Http\Controllers\Items\ItemsController;
 use App\Http\Controllers\Categories\CategoriesController;
+use App\Http\Controllers\Suppliers\SuppliersController;
 
 Route::get('/', function () {
     if (auth()->check()) {
@@ -56,5 +56,13 @@ Route::middleware('auth')->group(function () {
         Route::put('update/{category}', [CategoriesController::class, 'update'])->name('categories.update');
         Route::delete('delete/{category}', [CategoriesController::class, 'delete'])->name('categories.delete');
         Route::get('show/{category}', [CategoriesController::class, 'show'])->name('categories.show');
+    });
+
+    Route::prefix('suppliers')->middleware('CheckRoles:suppliers')->group(function () {
+        Route::get('index', [SuppliersController::class, 'index'])->name('suppliers.index');
+        Route::get('show/{supplier}', [SuppliersController::class, 'show'])->name('suppliers.show');
+        Route::post('store', [SuppliersController::class, 'store'])->name('suppliers.store');
+        Route::put('update/{supplier}', [SuppliersController::class, 'update'])->name('suppliers.update');
+        Route::delete('delete/{supplier}', [SuppliersController::class, 'delete'])->name('suppliers.delete');
     });
 });

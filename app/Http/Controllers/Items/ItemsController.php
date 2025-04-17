@@ -30,6 +30,7 @@ class ItemsController extends Controller
             'description' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
             'category_id' => 'required|exists:categories,id',
+            'code' => 'required|string|max:255',
         ]);
 
         $response = ItemService::makeItem($request);
@@ -57,7 +58,7 @@ class ItemsController extends Controller
             'category_id' => 'required|exists:categories,id',
         ]);
 
-        $response = ItemService::updateItem($item, $request);
+        $response = ItemService::updateItem( $request, $item);
 
         if($response === null)
         {

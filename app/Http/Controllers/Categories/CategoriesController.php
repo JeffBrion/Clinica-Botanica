@@ -46,7 +46,7 @@ class CategoriesController extends Controller
             'description' => 'required|string|max:255',
         ]);
 
-        $response = CategoryServices::updateCategory($category, $request);
+        $response = CategoryServices::updateCategory($request, $category);
 
         if($response === null)
         {

@@ -34,8 +34,8 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'name' => 'Proveedores',
-                'internal_name' => 'providers',
-                'access_route_name' => 'providers.index',
+                'internal_name' => 'suppliers',
+                'access_route_name' => 'suppliers.index',
                 'icon' => 'bx bx-store nav_icon',
             ],
         ];

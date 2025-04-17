@@ -18,16 +18,21 @@ class ItemService
         return $item;
     }
 
-    public static function updateItem($item, $request)
+    public static function updateItem( $request, Item $item)
     {
-        $item->update([
-            'name' => $request['name'],
-            'description' => $request['description'],
-            'category_id' => $request['category_id'],
-            'price' => $request['price'],
-        ]);
-
-        return $item;
+        
+        $item->name = $request['name'];
+        $item->description = $request['description'];
+        $item->category_id = $request['category_id'];
+        $item->price = $request['price'];
+    
+   
+        if ($item->save()) {
+            return $item;
+        }
+    
+        return null;
+     
     }
 
     public static function deleteItem($item)
