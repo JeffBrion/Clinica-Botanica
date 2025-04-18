@@ -3,7 +3,11 @@
         @isset($links)    
             @foreach ($links as $link)
                 <li class="nav-item">
-                    <a class="nav-link @if(array_key_exists('active', $link)) @if($link['active'] == true) active @endif @endif" href="{{ Route::has($link['route']) ? route($link['route']) : ''}}">{{ $link['name'] }}</a>
+                    <a class="nav-link 
+                        @if(array_key_exists('active', $link) && $link['active'] == true) active @endif" 
+                        href="{{ Route::has($link['route']) ? route($link['route'], $link['params'] ?? []) : '' }}">
+                        {{ $link['name'] }}
+                    </a>
                 </li>
             @endforeach
         @endisset

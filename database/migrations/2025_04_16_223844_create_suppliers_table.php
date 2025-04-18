@@ -21,6 +21,19 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
             $table->string('website')->nullable();
+            $table->string('image_path')->nullable();
+
+            $table->rememberToken();
+            $table->nullableUserStamps();
+            $table->timestamps();
+        });
+
+        Schema::create('supplier_products', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('supplier_id')->constrained()->onDelete('cascade');
+            $table->foreignId('item_id')->constrained()->onDelete('cascade');
+            $table->decimal('buy_price', 10, 2)->nullable();
+            $table->decimal('sell_price', 10, 2)->nullable();
 
             $table->rememberToken();
             $table->nullableUserStamps();
@@ -34,5 +47,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('suppliers');
+        Schema::dropIfExists('supplier_products');
     }
 };

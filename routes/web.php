@@ -61,8 +61,12 @@ Route::middleware('auth')->group(function () {
     Route::prefix('suppliers')->middleware('CheckRoles:suppliers')->group(function () {
         Route::get('index', [SuppliersController::class, 'index'])->name('suppliers.index');
         Route::get('show/{supplier}', [SuppliersController::class, 'show'])->name('suppliers.show');
+        Route::get('showitems/{supplier}', [SuppliersController::class, 'showitems'])->name('suppliers.showitems');
         Route::post('store', [SuppliersController::class, 'store'])->name('suppliers.store');
         Route::put('update/{supplier}', [SuppliersController::class, 'update'])->name('suppliers.update');
         Route::delete('delete/{supplier}', [SuppliersController::class, 'delete'])->name('suppliers.delete');
+        Route::post('assignItem', [SuppliersController::class, 'assignItem'])->name('suppliers.assignItem');
+        Route::delete('deleteItem/{item}', [SuppliersController::class, 'deleteItem'])->name('suppliers.deleteItem');
     });
+
 });

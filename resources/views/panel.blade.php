@@ -5,7 +5,7 @@
         <div class="row justify-content-center align-items-center">
             <div class="mt-5">
                 <div class="text-center">
-                    <img src="{{ asset('img/Logo.png') }}" alt="Logo" class="img-fluid mb-4">
+                    <img src="{{ asset('img/Logo.png') }}" alt="Logo" width="400" class="img-fluid mb-4">
                     <div class="lato-regular">
                         <h1 class="responsive-h1">Bienvenidos a {{ config('app.name') }}</h1>
                     </div>

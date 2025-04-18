@@ -22,6 +22,7 @@
                     <div class="form-group col-md-6 mt-3">
                         <label for="category_id">Categoria</label>
                         <select name="category_id" id="category_id" class="form-control" required>
+                            <option value="" selected disabled>Seleccione una categoria</option>
                             @foreach($categories as $category)
                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
                             @endforeach
@@ -34,7 +35,8 @@
                     <div class="form-group col-md-6 mt-3">
                         <label for="code">Código</label>
                         <input type="text" name="code" id="code" class="form-control" required>
-                    </div>           
+                    </div>
+         
                     <div class="col-md-12 mt-2">
                         <button type="submit" class="btn btn-outline-secondary">Agregar</button>
                     </div>

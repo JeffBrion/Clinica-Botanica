@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-lg-12">
             <h5>Ingresar Proveedor Nuevo</h5>
-            <form action="{{ Route('suppliers.store') }}" class="card p-3 mt-2" method="POST">
+            <form action="{{ Route('suppliers.store') }}" class="card p-3 mt-2" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
 
@@ -36,6 +36,10 @@
                         <label for="website">Página Web</label>
                         <input type="text" name="website" id="website" class="form-control" >
                     </div> 
+                    <div class="form-group col-md-6 mt-3">
+                        <label for="image">Imagen</label>
+                        <input type="file" name="image" id="image" class="form-control" accept="image/*">
+                    </div>
                     <div class="col-md-12 mt-2">
                         <button type="submit" class="btn btn-outline-secondary">Agregar</button>
                     </div>
@@ -44,45 +48,22 @@
         </div>
         <div class="col-lg-12 mt-4">
             <h5>Proveedores</h5>
-            <div class="card p-3">
-                <div class="row justify-content-end">
-                    <div class="col-md-8">
-                        <x-search-bar :table="'users_table'"/>
+                <div class="row mt-2 d-flex justify-content-between"> 
+                    @foreach($suppliers as $supplier)
+                    <div class="col-md-4 mb-4 d-flex align-items-stretch">
+                        <div class="card" style="width: 100%;">
+                            <img class="card-img-top img-fluid" src="{{ asset('storage/' . $supplier->image_path) }}" alt="{{ $supplier->name }}" alt="Card image cap" style="object-fit: cover; height: 200px;">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title text-center">{{ $supplier->name }}</h5>
+                                <p class="card-text"><strong>Promotor:</strong> {{ $supplier->promoter_name }}</p>
+                                <div class="mt-auto d-flex justify-content-between">
+                                    <a href="{{ route('suppliers.show', ['supplier' => $supplier]) }}" class="btn btn-primary btn-sm">Ver</a>
+                                    <button class="delete-button btn btn-danger btn-sm" data-url="{{ route('suppliers.delete', ['supplier' => $supplier]) }}">Eliminar</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="table-responsive">
-                    <table class="table table-striped table-hover m-0" id="users_table">
-                        <thead>
-                            <tr>
-                                <th>Nombre</th>
-                                <th>Nombre del promotor</th>
-                                <th>Descripción</th>
-                                <th>Dirección</th>
-                                <th>Número de Telefono</th>
-                                <th>Correo Electronico</th>
-                                <th>Página Web</th>
-                                <th>Opciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($suppliers as $supplier)
-                                <tr>
-                                    <td>{{ $supplier->name }}</td>
-                                    <td>{{ $supplier->promoter_name }}</td>
-                                    <td>{{ $supplier->description }}</td>
-                                    <td>{{ $supplier->address}}</td>
-                                    <td>{{ $supplier->phone }}</td>
-                                    <td>{{ $supplier->email }}</td>
-                                    <td>{{ $supplier->website }}</td>
-                                    <td>
-                                        <a href="{{route('suppliers.show', ['supplier' => $supplier])}}" class="btn btn-primary"><i class='bx bxs-show'></i></a>
-                                        <button class="delete-button btn btn-danger" data-url="{{route('suppliers.delete', ['supplier' => $supplier])}}"><i class='bx bxs-trash-alt'></i></button>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
+                    @endforeach
                 <div class="mt-2">
                     {{ $suppliers->links() }}
                 </div>
