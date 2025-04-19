@@ -12,7 +12,7 @@ class ItemService
             'name' => $request['name'],
             'description' => $request['description'],
             'category_id' => $request['category_id'],
-            'price' => $request['price'],
+            'code' => $request['code'],
         ]);
 
         return $item;
@@ -24,7 +24,7 @@ class ItemService
         $item->name = $request['name'];
         $item->description = $request['description'];
         $item->category_id = $request['category_id'];
-        $item->price = $request['price'];
+        $item->code = $request['code'];
     
    
         if ($item->save()) {

@@ -38,6 +38,12 @@ class DatabaseSeeder extends Seeder
                 'access_route_name' => 'suppliers.index',
                 'icon' => 'bx bx-store nav_icon',
             ],
+            [
+                'name' => 'Inventarios',
+                'internal_name' => 'inventories',
+                'access_route_name' => 'inventories.index',
+                'icon' => 'bx bx-archive nav_icon',
+            ],
         ];
 
         foreach ($modules as $module) {

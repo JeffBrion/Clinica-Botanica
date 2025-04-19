@@ -26,8 +26,8 @@
                         </select>
                     </div>
                     <div class="col-md-6 mt-3">
-                        <label for="price">Precio</label>
-                        <input type="number" name="price" id="price" class="form-control" value="{{$item->price}}" required>
+                        <label for="code">Código</label>
+                        <input type="text" name="code" id="code" class="form-control" value="{{$item->code}}" required>
                     </div>
                     <div class="col-md-12 mt-3">
                         <button type="submit" class="btn btn-outline-secondary">Actualizar</button>

@@ -5,6 +5,7 @@ namespace App\Models\Suppliers;
 use Illuminate\Database\Eloquent\Model;
 use Everth\UserStamps\UserStampsTrait;
 
+use App\Models\Items\Item;
 
 use App\Models\Suppliers\SupplierProduct;
 

@@ -30,9 +30,7 @@ return new class extends Migration
             $table->string('code')->unique()->nullable();
             $table->string('description')->nullable();
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
-            $table->decimal('price', 8, 2)->nullable();
-
-
+            
             $table->rememberToken();
             $table->nullableUserStamps();
             $table->timestamps();

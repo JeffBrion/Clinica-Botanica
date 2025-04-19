@@ -29,10 +29,6 @@
                         </select>
                     </div>
                     <div class="form-group col-md-6 mt-3">
-                        <label for="price">Precio</label>
-                        <input type="number" name="price" id="price" class="form-control" required>
-                    </div> 
-                    <div class="form-group col-md-6 mt-3">
                         <label for="code">Código</label>
                         <input type="text" name="code" id="code" class="form-control" required>
                     </div>
@@ -57,8 +53,8 @@
                             <tr>
                                 <th>Nombre</th>
                                 <th>Descripción</th>
-                                <th>Categoria</th>
-                                <th>Precio</th>
+                                <th>Categoria</th> 
+                                <th>Código</th>                          
                                 <th>Opciones</th>
                             </tr>
                         </thead>
@@ -68,7 +64,7 @@
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->description }}</td>
                                     <td>{{ $item->category?->name }}</td>
-                                    <td>{{ $item->price }}</td>
+                                    <td>{{ $item->code }}</td>
                                     <td>
                                         <a href="{{route('items.show', ['item' => $item])}}" class="btn btn-primary"><i class='bx bxs-show'></i></a>
                                         <button class="delete-button btn btn-danger" data-url="{{route('items.delete', ['item' => $item])}}"><i class='bx bxs-trash-alt'></i></button>

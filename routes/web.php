@@ -10,6 +10,7 @@ use App\Http\Controllers\Users\UsersController;
 use App\Http\Controllers\Items\ItemsController;
 use App\Http\Controllers\Categories\CategoriesController;
 use App\Http\Controllers\Suppliers\SuppliersController;
+use App\Http\Controllers\Inventories\InventoriesController;
 
 Route::get('/', function () {
     if (auth()->check()) {
@@ -67,6 +68,15 @@ Route::middleware('auth')->group(function () {
         Route::delete('delete/{supplier}', [SuppliersController::class, 'delete'])->name('suppliers.delete');
         Route::post('assignItem', [SuppliersController::class, 'assignItem'])->name('suppliers.assignItem');
         Route::delete('deleteItem/{item}', [SuppliersController::class, 'deleteItem'])->name('suppliers.deleteItem');
+    });
+
+    Route::prefix('inventories')->middleware('CheckRoles:inventories')->group(function () {
+        Route::get('index', [InventoriesController::class, 'index'])->name('inventories.index');
+    Route::get('entries', [InventoriesController::class, 'entries'])->name('inventories.entries');
+        Route::get('show/{inventory}', [InventoriesController::class, 'show'])->name('inventories.show');
+        Route::post('store', [InventoriesController::class, 'store'])->name('inventories.store');
+        Route::put('update/{inventory}', [InventoriesController::class, 'update'])->name('inventories.update');
+        Route::delete('delete/{inventory}', [InventoriesController::class, 'delete'])->name('inventories.delete');
     });
 
 });
