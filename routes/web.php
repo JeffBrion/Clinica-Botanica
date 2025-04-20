@@ -72,7 +72,8 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('inventories')->middleware('CheckRoles:inventories')->group(function () {
         Route::get('index', [InventoriesController::class, 'index'])->name('inventories.index');
-    Route::get('entries', [InventoriesController::class, 'entries'])->name('inventories.entries');
+        Route::get('entries', [InventoriesController::class, 'entries'])->name('inventories.entries');
+        Route::get('entries/item/{supplier}', [InventoriesController::class, 'entriesItems'])->name('inventory.entriesItems');
         Route::get('show/{inventory}', [InventoriesController::class, 'show'])->name('inventories.show');
         Route::post('store', [InventoriesController::class, 'store'])->name('inventories.store');
         Route::put('update/{inventory}', [InventoriesController::class, 'update'])->name('inventories.update');

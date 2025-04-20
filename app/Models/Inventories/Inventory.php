@@ -15,7 +15,7 @@ class Inventory extends Model
     protected $fillable = [
         'supplier_product_id',
         'quantity',
-        'requested_at',
+        'requested_date',
         'expiration_date',
         'status',
     ];

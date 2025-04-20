@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('inventories', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('supplier_products')->constrained()->onDelete('cascade');
+            $table->foreignId('supplier_product_id')->constrained()->onDelete('cascade');
+            $table->date('requested_date');
             $table->integer('quantity');
-            $table->date('requested_at');
             $table->date('expiration_date');
             $table->string('status')->default('pending'); 
             
