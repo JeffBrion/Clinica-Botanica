@@ -8,7 +8,7 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-12 mt-4">
-            <h5>Prodcutos</h5>
+            <h5>Productos</h5>
             <div class="card p-3">
                 <div class="row justify-content-end">
                     <div class="col-md-8">
