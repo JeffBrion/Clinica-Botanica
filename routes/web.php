@@ -11,6 +11,7 @@ use App\Http\Controllers\Items\ItemsController;
 use App\Http\Controllers\Categories\CategoriesController;
 use App\Http\Controllers\Suppliers\SuppliersController;
 use App\Http\Controllers\Inventories\InventoriesController;
+use App\Http\Controllers\Sales\SalesController;
 
 Route::get('/', function () {
     if (auth()->check()) {
@@ -78,6 +79,14 @@ Route::middleware('auth')->group(function () {
         Route::post('store', [InventoriesController::class, 'store'])->name('inventories.store');
         Route::put('update/{inventory}', [InventoriesController::class, 'update'])->name('inventories.update');
         Route::delete('delete/{inventory}', [InventoriesController::class, 'delete'])->name('inventories.delete');
+    });
+
+    Route::prefix('sales')->middleware('CheckRoles:sales')->group(function () {
+        Route::get('index', [SalesController::class, 'index'])->name('sales.index');
+        Route::get('show/{sale}', [SalesController::class, 'show'])->name('sales.show');
+        Route::post('store', [SalesController::class, 'store'])->name('sales.store');
+        Route::put('update/{sale}', [SalesController::class, 'update'])->name('sales.update');
+        Route::delete('delete/{sale}', [SalesController::class, 'delete'])->name('sales.delete');
     });
 
 });

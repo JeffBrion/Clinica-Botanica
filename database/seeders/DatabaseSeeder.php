@@ -44,6 +44,18 @@ class DatabaseSeeder extends Seeder
                 'access_route_name' => 'inventories.index',
                 'icon' => 'bx bx-archive nav_icon',
             ],
+            [
+                'name' => 'Ventas',
+                'internal_name' => 'sales',
+                'access_route_name' => 'sales.index',
+                'icon' => 'bx bx-cart nav_icon',
+            ],
+            [
+                'name' => 'Reportes',
+                'internal_name' => 'reports',
+                'access_route_name' => 'reports.index',
+                'icon' => 'bx bx-bar-chart-alt nav_icon',
+            ],
         ];
 
         foreach ($modules as $module) {
