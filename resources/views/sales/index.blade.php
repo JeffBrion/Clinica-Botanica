@@ -47,6 +47,9 @@
                     </tbody>
                 </table>
             </div>
+            <div>
+                {{ $inventories->links() }}
+            </div>
         </div>
     </div>
 
@@ -91,22 +94,22 @@
                     return;
                 }
 
-                // Verificar si el producto ya está en el carrito
+ 
                 let existingRow = Array.from(cartContainer.children).find(row => 
                     row.querySelector('.product-name').textContent === productName
                 );
 
                 if (existingRow) {
-                    // Incrementar la cantidad si ya existe
+            
                     let quantityCell = existingRow.querySelector('.product-quantity');
                     let currentQuantity = parseInt(quantityCell.textContent);
                     quantityCell.textContent = currentQuantity + quantity;
 
-                    // Actualizar el total
+
                     let totalCell = existingRow.querySelector('.product-total');
                     totalCell.textContent = ((currentQuantity + quantity) * productPrice).toFixed(2);
                 } else {
-                    // Agregar un nuevo producto al carrito
+  
                     const row = document.createElement('tr');
                     row.innerHTML = `
                         <td class="product-name">${productName}</td>
@@ -120,12 +123,12 @@
                     `;
                     cartContainer.appendChild(row);
 
-                    // Agregar evento para eliminar
+
                     row.querySelector('.remove-from-cart-btn').addEventListener('click', function () {
                         row.remove();
                     });
 
-                    // Agregar evento para decrementar cantidad
+  
                     row.querySelector('.decrement-quantity-btn').addEventListener('click', function () {
                         let quantityCell = row.querySelector('.product-quantity');
                         let currentQuantity = parseInt(quantityCell.textContent);
@@ -133,7 +136,7 @@
                         if (currentQuantity > 1) {
                             quantityCell.textContent = currentQuantity - 1;
 
-                            // Actualizar el total
+             
                             let totalCell = row.querySelector('.product-total');
                             totalCell.textContent = ((currentQuantity - 1) * productPrice).toFixed(2);
                         } else {

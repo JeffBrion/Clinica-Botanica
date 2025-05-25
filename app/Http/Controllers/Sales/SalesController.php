@@ -9,10 +9,10 @@ use App\Models\Inventories\Inventory;
 class SalesController extends Controller
 {
     //
-    public function index()
+    public function index( $pagination = 15)
     {
-        $inventories = Inventory::all();   
-        return view('sales.index' , compact('inventories'));
+        $inventories = Inventory::orderBy('created_at', 'desc')->paginate($pagination);
+        return view('sales.index', compact('inventories'));
     }
 
 }
