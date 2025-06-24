@@ -15,7 +15,7 @@
                     </div>
                     <div class="col-md-6 mt-3">
                         <label for="description">Descripción</label>
-                        <input type="text" name="description" id="description" class="form-control" value="{{$category->description}}" required>
+                        <input type="text" name="description" id="description" class="form-control" value="{{$category->description}}" >
                     </div>
                     <div class="col-md-12 mt-3">
                         <button type="submit" class="btn btn-outline-secondary">Actualizar</button>

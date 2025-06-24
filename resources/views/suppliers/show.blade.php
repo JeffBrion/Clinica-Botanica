@@ -21,27 +21,27 @@
                     </div>
                     <div class="col-md-6 mt-3">
                         <label for="promoter_name">Nombre del promotor</label>
-                        <input type="text" name="promoter_name" id="promoter_name" class="form-control" value="{{$supplier->name}}" required>
+                        <input type="text" name="promoter_name" id="promoter_name" class="form-control" value="{{$supplier->name}}" >
                     </div>
                     <div class="col-md-6 mt-3">
                         <label for="description">Descripción</label>
-                        <input type="text" name="description" id="description" class="form-control" value="{{$supplier->description}}" required>
+                        <input type="text" name="description" id="description" class="form-control" value="{{$supplier->description}}" >
                     </div>
                     <div class="col-md-6 mt-3">
                         <label for="price">Dirección</label>
-                        <input type="text" name="address" id="address" class="form-control" value="{{$supplier->address}}" required>
+                        <input type="text" name="address" id="address" class="form-control" value="{{$supplier->address}}">
                     </div>
                     <div class="col-md-6 mt-3">
                         <label for="phone">Número de Telefono</label>
-                        <input type="text" name="phone" id="phone" class="form-control" value="{{$supplier->phone}}" required>
+                        <input type="text" name="phone" id="phone" class="form-control" value="{{$supplier->phone}}" >
                     </div>
                     <div class="col-md-6 mt-3">
                         <label for="email">Correo Electronico</label>
-                        <input type="email" name="email" id="email" class="form-control" value="{{$supplier->email}}" required>
+                        <input type="email" name="email" id="email" class="form-control" value="{{$supplier->email}}" >
                     </div>
                     <div class="col-md-6 mt-3">
                         <label for="website">Página Web</label>
-                        <input type="text" name="website" id="website" class="form-control" value="{{$supplier->website}}" required>
+                        <input type="text" name="website" id="website" class="form-control" value="{{$supplier->website}}" >
                     </div>
                     <div class="col-md-6 mt-3">
                         <input type="hidden" name="supplier_id" id="supplier_id" class="form-control" value="{{$supplier->id}}">
@@ -77,7 +77,7 @@
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->description }}</td>
                                     <td>{{ $item->category?->name }}</td>
-                                    <td>{{ $item->price }}</td>
+                        
                                     <td>
                                         <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#assignModal-{{ $item->id }}">
                                             Asignar

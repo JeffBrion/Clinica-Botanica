@@ -60,6 +60,15 @@ class SupplierService
 
     public static function assignItem($request)
     {
+        // Verificar si ya existe la relación entre supplier_id e item_id
+        $exists = SupplierProduct::where('supplier_id', $request['supplier_id'])
+            ->where('item_id', $request['item_id'])
+            ->exists();
+
+        if ($exists) {
+            return null;
+        }
+
         $supplierproduct = SupplierProduct::create([
             'supplier_id' => $request['supplier_id'],
             'item_id' => $request['item_id'],

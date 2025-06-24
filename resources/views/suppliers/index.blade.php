@@ -14,7 +14,7 @@
                     </div>
                     <div class="form-group col-md-6 mt-3">
                         <label for="promoter_name">Nombre del promotor</label>
-                        <input type="text" name="promoter_name" id="promoter_name" class="form-control" required>
+                        <input type="text" name="promoter_name" id="promoter_name" class="form-control" >
                     </div>
                     <div class="form-group col-md-6 mt-3">
                         <label for="description">Descripción</label>
@@ -30,7 +30,7 @@
                     </div>
                     <div class="form-group col-md-6 mt-3">
                         <label for="email">Correo Electronico</label>
-                        <input type="email" name="email" id="email" class="form-control" >
+                        <input type="text" name="email" id="email" class="form-control" >
                     </div>       
                     <div class="form-group col-md-6 mt-3">
                         <label for="website">Página Web</label>

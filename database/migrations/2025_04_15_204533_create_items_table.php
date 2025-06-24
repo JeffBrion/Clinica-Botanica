@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Create the categories table
+
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
 
@@ -22,7 +22,7 @@ return new class extends Migration
             $table->nullableUserStamps();
             $table->timestamps();
         });
-        // Create the items table
+  
         Schema::create('items', function (Blueprint $table) {
             $table->id();
 

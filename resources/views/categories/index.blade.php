@@ -17,7 +17,7 @@
                     </div>
                     <div class="form-group col-md-6 mt-3">
                         <label for="name">Descripción</label>
-                        <input type="text" name="description" id="description" class="form-control" required>
+                        <input type="text" name="description" id="description" class="form-control" >
                     </div>   
                     <div class="col-md-12 mt-2">
                         <button type="submit" class="btn btn-outline-secondary">Agregar</button>
