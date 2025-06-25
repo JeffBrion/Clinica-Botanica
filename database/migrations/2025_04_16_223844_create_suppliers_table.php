@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('suppliers', function (Blueprint $table) {
             $table->id();
-           
+
             $table->string('name')->nullable();
             $table->string('promoter_name')->nullable();
             $table->string('description')->nullable();
@@ -30,8 +30,8 @@ return new class extends Migration
 
         Schema::create('supplier_products', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('supplier_id')->constrained()->onDelete('cascade');
-            $table->foreignId('item_id')->constrained()->onDelete('cascade');
+            $table->foreignId('supplier_id')->constrained();
+            $table->foreignId('item_id')->constrained();
             $table->decimal('buy_price', 10, 2)->nullable();
             $table->decimal('sell_price', 10, 2)->nullable();
 

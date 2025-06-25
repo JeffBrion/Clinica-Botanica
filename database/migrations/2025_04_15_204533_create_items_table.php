@@ -22,15 +22,15 @@ return new class extends Migration
             $table->nullableUserStamps();
             $table->timestamps();
         });
-  
+
         Schema::create('items', function (Blueprint $table) {
             $table->id();
 
             $table->string('name')->nullable();
             $table->string('code')->unique()->nullable();
             $table->string('description')->nullable();
-            $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
-            
+            $table->foreignId('category_id')->constrained('categories');
+
             $table->rememberToken();
             $table->nullableUserStamps();
             $table->timestamps();

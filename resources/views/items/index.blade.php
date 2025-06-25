@@ -17,7 +17,7 @@
                     </div>
                     <div class="form-group col-md-6 mt-3">
                         <label for="description">Descripción</label>
-                        <input type="text" name="description" id="description" class="form-control" required>
+                        <input type="text" name="description" id="description" class="form-control">
                     </div>
                     <div class="form-group col-md-6 mt-3 position-relative">
                         <label for="category_search">Buscar Categoría</label>
