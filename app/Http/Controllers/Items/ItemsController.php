@@ -27,9 +27,8 @@ class ItemsController extends Controller
     {
         $request = request()->validate([
             'name' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
+            'description' => 'nullable|string|max:255',
             'category_id' => 'required|exists:categories,id',
-            'code' => 'required|string|max:255',
         ]);
 
         $response = ItemService::makeItem($request);
@@ -52,8 +51,7 @@ class ItemsController extends Controller
     {
         $request = request()->validate([
             'name' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
-            'code' => 'required|string|max:255',
+            'description' => 'nullable|string|max:255',
             'category_id' => 'required|exists:categories,id',
         ]);
 

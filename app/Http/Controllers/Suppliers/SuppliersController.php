@@ -19,8 +19,15 @@ class SuppliersController extends Controller
 
     public function show(Supplier $supplier, $pagination = 20)
     {
-        $items = Item::orderBy('created_at', 'desc')->paginate($pagination);
+
+        $assignedItemIds = SupplierProduct::where('supplier_id', $supplier->id)->pluck('item_id')->toArray();
+
+        $items = Item::whereNotIn('id', $assignedItemIds)
+            ->orderBy('created_at', 'desc')
+            ->paginate($pagination);
+
         return view('suppliers.show', compact('supplier', 'items'));
+
     }
 
     public function store(Request $request)
@@ -35,17 +42,17 @@ class SuppliersController extends Controller
             'website' => 'nullable|string|max:255',
 
         ]);
-    
+
 
         $response = SupplierService::makeSupplier($request);
-    
+
         if ($response === null) {
             return redirect()->back()->with([
                 'message' => 'Error al crear el Proveedor',
                 'type' => 'danger',
             ]);
         }
-    
+
         return redirect()->back()->with([
             'message' => 'Proveedor creado correctamente',
             'type' => 'success',
@@ -73,8 +80,8 @@ class SuppliersController extends Controller
             'message' => 'Producto asignado correctamente al Proveedor',
             'type' => 'success',
         ]);
-    
-    
+
+
     }
 
     public function showitems(Supplier $supplier, $pagination = 20)

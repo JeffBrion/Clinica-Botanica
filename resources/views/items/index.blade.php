@@ -2,7 +2,7 @@
 @section('content')
 <x-sub-navbar :links="[
     ['route' => 'items.index', 'name' => 'Productos', 'active' => true],
-    ['route' => 'categories.index', 'name' => 'Categorias', 'active' => false],        
+    ['route' => 'categories.index', 'name' => 'Categorias', 'active' => false],
 ]"/>
 <div class="container">
     <div class="row">
@@ -19,6 +19,11 @@
                         <label for="description">Descripción</label>
                         <input type="text" name="description" id="description" class="form-control" required>
                     </div>
+                    <div class="form-group col-md-6 mt-3 position-relative">
+                        <label for="category_search">Buscar Categoría</label>
+                        <input type="text" id="category_search" class="form-control" placeholder="Buscar categoría...">
+                        <ul class="list-group mt-1" id="category_search_results" style="display:none; position:absolute; z-index:1000; width:100%;"></ul>
+                    </div>
                     <div class="form-group col-md-6 mt-3">
                         <label for="category_id">Categoria</label>
                         <select name="category_id" id="category_id" class="form-control" required>
@@ -28,11 +33,8 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="form-group col-md-6 mt-3">
-                        <label for="code">Código</label>
-                        <input type="text" name="code" id="code" class="form-control" required>
-                    </div>
-         
+
+
                     <div class="col-md-12 mt-2">
                         <button type="submit" class="btn btn-outline-secondary">Agregar</button>
                     </div>
@@ -53,8 +55,8 @@
                             <tr>
                                 <th>Nombre</th>
                                 <th>Descripción</th>
-                                <th>Categoria</th> 
-                                <th>Código</th>                          
+                                <th>Categoria</th>
+                                <th>Código</th>
                                 <th>Opciones</th>
                             </tr>
                         </thead>
@@ -81,5 +83,49 @@
         </div>
     </div>
 </div>
+                  <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                            const searchInput = document.getElementById('category_search');
+                            const resultsList = document.getElementById('category_search_results');
+                            const select = document.getElementById('category_id');
+                            let categories = [
+                                @foreach($categories as $category)
+                                    {id: {{ $category->id }}, name: "{{ addslashes($category->name) }}"},
+                                @endforeach
+                            ];
+
+                            searchInput.addEventListener('input', function () {
+                                const query = this.value.toLowerCase();
+                                resultsList.innerHTML = '';
+                                if (query.length === 0) {
+                                    resultsList.style.display = 'none';
+                                    return;
+                                }
+                                const filtered = categories.filter(cat => cat.name.toLowerCase().includes(query));
+                                if (filtered.length === 0) {
+                                    resultsList.style.display = 'none';
+                                    return;
+                                }
+                                filtered.forEach(cat => {
+                                    const li = document.createElement('li');
+                                    li.className = 'list-group-item list-group-item-action';
+                                    li.textContent = cat.name;
+                                    li.onclick = function () {
+                                        select.value = cat.id;
+                                        searchInput.value = cat.name;
+                                        resultsList.style.display = 'none';
+                                    };
+                                    resultsList.appendChild(li);
+                                });
+                                resultsList.style.display = 'block';
+                            });
+
+                            document.addEventListener('click', function (e) {
+                                if (!searchInput.contains(e.target) && !resultsList.contains(e.target)) {
+                                    resultsList.style.display = 'none';
+                                }
+                            });
+                        });
+                    </script>
 <x-delete-alert />
 @endsection

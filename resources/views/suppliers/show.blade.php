@@ -21,7 +21,7 @@
                     </div>
                     <div class="col-md-6 mt-3">
                         <label for="promoter_name">Nombre del promotor</label>
-                        <input type="text" name="promoter_name" id="promoter_name" class="form-control" value="{{$supplier->name}}" >
+                        <input type="text" name="promoter_name" id="promoter_name" class="form-control" value="{{$supplier->promoter_name}}" >
                     </div>
                     <div class="col-md-6 mt-3">
                         <label for="description">Descripción</label>
@@ -45,7 +45,7 @@
                     </div>
                     <div class="col-md-6 mt-3">
                         <input type="hidden" name="supplier_id" id="supplier_id" class="form-control" value="{{$supplier->id}}">
-                    </div>  
+                    </div>
                     <div class="col-md-12 mt-3">
                         <button type="submit" class="btn btn-outline-secondary">Actualizar</button>
                     </div>
@@ -67,7 +67,6 @@
                                 <th>Nombre</th>
                                 <th>Descripción</th>
                                 <th>Categoria</th>
-                                <th>Precio</th>
                                 <th>Opciones</th>
                             </tr>
                         </thead>
@@ -77,7 +76,7 @@
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->description }}</td>
                                     <td>{{ $item->category?->name }}</td>
-                        
+
                                     <td>
                                         <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#assignModal-{{ $item->id }}">
                                             Asignar
