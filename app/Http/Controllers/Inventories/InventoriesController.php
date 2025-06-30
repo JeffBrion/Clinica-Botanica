@@ -14,7 +14,8 @@ class InventoriesController extends Controller
 {
     public function index( $pagination = 15)
     {
-        $inventories = Inventory::orderBy('created_at', 'desc')->paginate($pagination);
+        $inventories = Inventory::where('status', 'Entrada')->orderBy('created_at', 'desc')->paginate($pagination);
+
         return view('inventories.index', compact('inventories'));
     }
 
@@ -32,7 +33,7 @@ class InventoriesController extends Controller
 
     public function store(Request $request)
     {
-   
+
         $request->validate([
             'products' => 'required|array',
             'products.*.id' => 'required|exists:supplier_products,id',
@@ -52,6 +53,31 @@ class InventoriesController extends Controller
 
         return redirect()->back()->with([
             'message' => 'Producto agregado correctamente',
+            'type' => 'success',
+        ]);
+    }
+
+    public function history()
+    {
+        $inventories = Inventory::orderBy('created_at', 'desc')->paginate(15);
+
+        return view('inventories.history', compact('inventories'));
+    }
+
+  public function historydelete(Request $request)
+    {
+        $response = InventoryService::historyDelete($request->all());
+
+        if($response === null)
+        {
+            return redirect()->back()->with([
+                'message' => 'Error al eliminar el Producto',
+                'type' => 'danger',
+            ]);
+        }
+
+        return redirect()->back()->with([
+            'message' => 'Producto Eliminado correctamente',
             'type' => 'success',
         ]);
     }

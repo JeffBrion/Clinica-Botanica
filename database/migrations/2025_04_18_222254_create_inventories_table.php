@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('inventories', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('supplier_product_id')->constrained()->onDelete('cascade');
+            $table->foreignId('supplier_product_id')->constrained();
             $table->date('requested_date');
             $table->integer('quantity');
             $table->date('expiration_date');
-            $table->string('status')->default('pending'); 
-            
+            $table->string('status')->default('Agregado');
+
             $table->rememberToken();
             $table->nullableUserStamps();
             $table->timestamps();

@@ -31,7 +31,7 @@ Route::group([], function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('panel', [PanelController::class, 'index'])->name('panel');
-    
+
     Route::get('showChangePassword', [UsersController::class, 'showChangePassword'])->name('users.showChangePassword');
     Route::post('updatePassword', [UsersController::class, 'updatePassword'])->name('users.updatePassword');
 
@@ -79,6 +79,8 @@ Route::middleware('auth')->group(function () {
         Route::post('store', [InventoriesController::class, 'store'])->name('inventories.store');
         Route::put('update/{inventory}', [InventoriesController::class, 'update'])->name('inventories.update');
         Route::delete('delete/{inventory}', [InventoriesController::class, 'delete'])->name('inventories.delete');
+        Route::get('history', [InventoriesController::class, 'history'])->name('inventories.history');
+        Route::post('history/delete/{inventory}', [InventoriesController::class, 'historydelete'])->name('inventories.history.delete');
     });
 
     Route::prefix('sales')->middleware('CheckRoles:sales')->group(function () {

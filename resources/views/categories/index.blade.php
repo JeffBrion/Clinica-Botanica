@@ -2,7 +2,7 @@
 @section('content')
 <x-sub-navbar :links="[
     ['route' => 'items.index', 'name' => 'Productos', 'active' => false],
-    ['route' => 'categories.index', 'name' => 'Categorias', 'active' => true],        
+    ['route' => 'categories.index', 'name' => 'Categorias', 'active' => true],
 ]"/>
 <div class="container">
     <div class="row">
@@ -18,7 +18,7 @@
                     <div class="form-group col-md-6 mt-3">
                         <label for="name">Descripción</label>
                         <input type="text" name="description" id="description" class="form-control" >
-                    </div>   
+                    </div>
                     <div class="col-md-12 mt-2">
                         <button type="submit" class="btn btn-outline-secondary">Agregar</button>
                     </div>
@@ -29,7 +29,7 @@
             <h5>Categorias</h5>
             <div class="card p-3">
                 <div class="row justify-content-end">
-                    <div class="col-md-8">
+                    <div class="col-md-12">
                         <x-search-bar :table="'users_table'"/>
                     </div>
                 </div>

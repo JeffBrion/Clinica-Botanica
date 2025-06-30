@@ -1,23 +1,48 @@
 <div class="col-sm">
-    <div class="row d-flex justify-content-end">
-        <div class="col-lg-5 d-flex">
-            <div class="input-group mb-3 d-flex justify-content-end">
-                <select type="search" class="form-select search_select" id="search_select_{{$table}}" placeholder="Buscar" name="search_select_{{$table}}" data-table="{{$table}}""></select>
-            </div>
+    <div class="row d-flex justify-content-start">
+        <div class="col-lg-2 d-flex align-items-center">
+            <button type="button" class="btn btn-outline-secondary" id="toggle_search_{{$table}}">
+                Activar Filtros
+            </button>
         </div>
-        <div class="col-lg-5">
-            <div class="input-group mb-3 d-flex justify-content-end">
-                <span class="input-group-text"><i class='bx bx-search'></i></span>
-                <input class="form-control search_input" id="search_input_{{$table}}" name="search_input_{{$table}}" data-table="{{$table}}">
-            </div>
-        </div>
-        <div class="col-lg-2">
-            <div class="input-group mb-3 d-flex justify-content-end">
-                <button type="button" class="btn btn-outline-success clear_button" id="clear_button_{{$table}}" data-table="{{$table}}">Limpiar</button>
+        <div class="col-lg-10">
+            <div class="search-bar-fields" id="search_bar_fields_{{$table}}" style="display: none;">
+                <div class="row">
+                    <div class="col-lg-5 d-flex">
+                        <div class="input-group mb-3 d-flex justify-content-start">
+                            <select type="search" class="form-select search_select" id="search_select_{{$table}}" placeholder="Buscar" name="search_select_{{$table}}" data-table="{{$table}}"></select>
+                        </div>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="input-group mb-3 d-flex justify-content-start">
+                            <input class="form-control search_input" id="search_input_{{$table}}" name="search_input_{{$table}}" data-table="{{$table}}">
+                        </div>
+                    </div>
+                    {{-- <div class="col-lg-2">
+                        <div class="input-group mb-3 d-flex justify-content-start">
+                            <button type="button" class="btn btn-outline-success clear_button" id="clear_button_{{$table}}" data-table="{{$table}}">Limpiar</button>
+                        </div>
+                    </div> --}}
+                </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const toggleBtn = document.getElementById('toggle_search_{{$table}}');
+        const searchFields = document.getElementById('search_bar_fields_{{$table}}');
+        if (toggleBtn && searchFields) {
+            toggleBtn.addEventListener('click', function() {
+                if (searchFields.style.display === 'none') {
+                    searchFields.style.display = '';
+                } else {
+                    searchFields.style.display = 'none';
+                }
+            });
+        }
+    });
+</script>
 
 @once
 @push('scripts')
@@ -39,7 +64,7 @@
             loadFiels(input, input.dataset.table);
         });
     });
-    
+
     function getTableFiels(t){
         let fields = [];
         let table = document.getElementById(t);

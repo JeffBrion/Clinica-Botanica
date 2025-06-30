@@ -2,13 +2,14 @@
 @section('content')
 <x-sub-navbar :links="[
     ['route' => 'inventories.index', 'name' => 'Inventario', 'active' => false],
-    ['route' => 'inventories.entries', 'name' => 'Entradas', 'active' => true],        
+    ['route' => 'inventories.entries', 'name' => 'Entradas', 'active' => true],
+    ['route' => 'inventories.history', 'name' => 'Historial', 'active' => false],
 ]"/>
 <div class="container">
     <h5>Proveedores</h5>
     <div class="row card p-3 mt-2">
         <div class="col-lg-12 mt-4">
-                <div class="row mt-2 d-flex justify-content-between"> 
+                <div class="row mt-2 d-flex justify-content-between">
                     @foreach($suppliers as $supplier)
                     <div class="col-md-4 mb-4 d-flex align-items-stretch">
                         <div class="card" style="width: 100%;">

@@ -6,7 +6,7 @@
         <h5>Registrar Ventas</h5>
         <div class="card p-3">
             <div class="row justify-content-end">
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <x-search-bar :table="'users_table'"/>
                 </div>
             </div>
@@ -18,8 +18,8 @@
                             <th>Cantidad en stock</th>
                             <th>Descripción</th>
                             <th>Cantidad a vender</th>
-                            <th>Precio</th> 
-                            <th>Opciones</th>                          
+                            <th>Precio</th>
+                            <th>Opciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -29,18 +29,18 @@
                                 <td>{{ $inventory->quantity }}</td>
                                 <td>{{ $inventory->supplierProduct?->item->description }} </td>
                                 <td>
-                                    <input type="number" class="form-control quantity-input" 
-                                           min="1" max="{{ $inventory->quantity }}" 
+                                    <input type="number" class="form-control quantity-input"
+                                           min="1" max="{{ $inventory->quantity }}"
                                            value="1">
                                 </td>
                                 <td>{{ $inventory->supplierProduct?->sell_price }}</td>
                                 <td>
-                                    <button class="btn btn-sm btn-primary add-to-cart-btn" 
+                                    <button class="btn btn-sm btn-primary add-to-cart-btn"
                                         data-product-name="{{ $inventory->supplierProduct?->item->name }}"
                                         data-product-price="{{ $inventory->supplierProduct?->sell_price }}">
                                     Agregar al Carrito
                                     <i class="bx bx-cart"></i>
-                                    </button> 
+                                    </button>
                                 </td>
                             </tr>
                         @endforeach
@@ -94,13 +94,13 @@
                     return;
                 }
 
- 
-                let existingRow = Array.from(cartContainer.children).find(row => 
+
+                let existingRow = Array.from(cartContainer.children).find(row =>
                     row.querySelector('.product-name').textContent === productName
                 );
 
                 if (existingRow) {
-            
+
                     let quantityCell = existingRow.querySelector('.product-quantity');
                     let currentQuantity = parseInt(quantityCell.textContent);
                     quantityCell.textContent = currentQuantity + quantity;
@@ -109,7 +109,7 @@
                     let totalCell = existingRow.querySelector('.product-total');
                     totalCell.textContent = ((currentQuantity + quantity) * productPrice).toFixed(2);
                 } else {
-  
+
                     const row = document.createElement('tr');
                     row.innerHTML = `
                         <td class="product-name">${productName}</td>
@@ -128,7 +128,7 @@
                         row.remove();
                     });
 
-  
+
                     row.querySelector('.decrement-quantity-btn').addEventListener('click', function () {
                         let quantityCell = row.querySelector('.product-quantity');
                         let currentQuantity = parseInt(quantityCell.textContent);
@@ -136,7 +136,7 @@
                         if (currentQuantity > 1) {
                             quantityCell.textContent = currentQuantity - 1;
 
-             
+
                             let totalCell = row.querySelector('.product-total');
                             totalCell.textContent = ((currentQuantity - 1) * productPrice).toFixed(2);
                         } else {

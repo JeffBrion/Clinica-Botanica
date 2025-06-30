@@ -13,6 +13,11 @@
                 No hay items asignados a este proveedor.
             </div>
         @else
+        <div class="row justify-content-end">
+                    <div class="col-md-12">
+                        <x-search-bar :table="'users_table'"/>
+                    </div>
+                </div>
             <table class="table table-bordered">
                 <thead>
                     <tr>

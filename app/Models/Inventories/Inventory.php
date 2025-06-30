@@ -24,4 +24,8 @@ class Inventory extends Model
     {
         return $this->belongsTo(SupplierProduct::class);
     }
+    public function createdBy()
+    {
+        return $this->belongsTo('App\Models\User', 'updated_by');
+    }
 }

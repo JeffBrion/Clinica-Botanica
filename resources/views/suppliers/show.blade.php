@@ -56,7 +56,7 @@
             <h5>Productos</h5>
             <div class="card p-3">
                 <div class="row justify-content-end">
-                    <div class="col-md-8">
+                    <div class="col-md-12">
                         <x-search-bar :table="'users_table'"/>
                     </div>
                 </div>

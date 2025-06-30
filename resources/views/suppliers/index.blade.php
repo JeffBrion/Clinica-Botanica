@@ -23,7 +23,7 @@
                     <div class="form-group col-md-6 mt-3">
                         <label for="address">Dirección</label>
                         <input type="address" name="address" id="address" class="form-control" >
-                    </div> 
+                    </div>
                     <div class="form-group col-md-6 mt-3">
                         <label for="phone">Número de Telefono</label>
                         <input type="text" name="phone" id="phone" class="form-control" >
@@ -31,11 +31,11 @@
                     <div class="form-group col-md-6 mt-3">
                         <label for="email">Correo Electronico</label>
                         <input type="text" name="email" id="email" class="form-control" >
-                    </div>       
+                    </div>
                     <div class="form-group col-md-6 mt-3">
                         <label for="website">Página Web</label>
                         <input type="text" name="website" id="website" class="form-control" >
-                    </div> 
+                    </div>
                     <div class="form-group col-md-6 mt-3">
                         <label for="image">Imagen</label>
                         <input type="file" name="image" id="image" class="form-control" accept="image/*">
@@ -47,8 +47,9 @@
             </form>
         </div>
         <div class="col-lg-12 mt-4">
+            
             <h5>Proveedores</h5>
-                <div class="row mt-2 d-flex justify-content-between"> 
+                <div class="row mt-2 d-flex justify-content-between">
                     @foreach($suppliers as $supplier)
                     <div class="col-md-4 mb-4 d-flex align-items-stretch">
                         <div class="card" style="width: 100%;">

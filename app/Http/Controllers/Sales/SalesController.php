@@ -11,7 +11,9 @@ class SalesController extends Controller
     //
     public function index( $pagination = 15)
     {
-        $inventories = Inventory::orderBy('created_at', 'desc')->paginate($pagination);
+        $inventories = Inventory::where('status', 'Entrada')
+            ->orderBy('created_at', 'desc')
+            ->paginate($pagination);
         return view('sales.index', compact('inventories'));
     }
 
