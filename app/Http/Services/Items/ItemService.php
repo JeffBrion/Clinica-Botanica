@@ -8,11 +8,11 @@ class ItemService
 {
     public static function makeItem($request)
     {
-        if (Item::where('name', $request['name'])
-            ->where('description', $request['description'])
-            ->exists()) {
-            return null;
-        }
+        // if (Item::where('name', $request['name'])
+        //     ->where('description', $request['description'])
+        //     ->exists()) {
+        //     return null;
+        // }
         $item = Item::create([
             'name' => $request['name'],
             'description' => $request['description'],

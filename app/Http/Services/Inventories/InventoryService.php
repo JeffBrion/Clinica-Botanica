@@ -11,34 +11,51 @@ class InventoryService
     public static function makeInventory($request)
     {
         $user = Auth::user();
-        $inventories = [];
 
         foreach ($request->products as $product) {
-            $existingInventory = Inventory::where('supplier_product_id', $product['id'])->first();
-        
-            if ($existingInventory && $existingInventory->status !== 'Eliminado') {
-                $existingInventory->quantity += $product['quantity'];
-                $existingInventory->updated_by = $user->id;
-                $existingInventory->updated_at = now();
-                $existingInventory->save();
-            } else {
-                // Always create a new inventory record with the correct created_by user
-                $inventories[] = [
-                    'supplier_product_id' => $product['id'],
-                    'quantity' => $product['quantity'],
-                    'requested_date' => now(),
-                    'expiration_date' => $product['expiration_date'] ?? null,
-                    'status' => 'Entrada',
-                    'created_by' => $user->id,
-                    'updated_by' => $user->id,
-                    'updated_at' => now(),
-                    'created_at' => now(),
-                ];
-            }
-        }
+            $supplierProductId = $product['supplier_product_id'];
 
-        if (!empty($inventories)) {
-            Inventory::insert($inventories);
+            $existing = Inventory::where('supplier_product_id', $supplierProductId)
+                ->where('status', 'Entrada')
+                ->first();
+
+            if ($existing) {
+                $existing->quantity += $product['quantity'];
+                $existing->expiration_date = $product['expiration_date'] ?? $existing->expiration_date;
+                $existing->updated_by = $user->id;
+                $existing->updated_at = now();
+                $existing->save();
+            } else {
+                $deleted = Inventory::where('supplier_product_id', $supplierProductId)
+                    ->where('status', 'Eliminado')
+                    ->first();
+
+                if ($deleted) {
+                    $newInventory = $deleted->replicate();
+                    $newInventory->quantity = $product['quantity'];
+                    $newInventory->requested_date = now();
+                    $newInventory->expiration_date = $product['expiration_date'] ?? $deleted->expiration_date;
+                    $newInventory->status = 'Entrada';
+                    $newInventory->created_by = $user->id;
+                    $newInventory->updated_by = $user->id;
+                    $newInventory->created_at = now();
+                    $newInventory->updated_at = now();
+                    $newInventory->supplier_product_id = $supplierProductId; // asegúrate de esto
+                    $newInventory->save();
+                } else {
+                    Inventory::create([
+                        'supplier_product_id' => $supplierProductId,
+                        'quantity' => $product['quantity'],
+                        'requested_date' => now(),
+                        'expiration_date' => $product['expiration_date'] ?? null,
+                        'status' => 'Entrada',
+                        'created_by' => $user->id,
+                        'updated_by' => $user->id,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ]);
+                }
+            }
         }
 
         return true;

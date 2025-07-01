@@ -5,7 +5,7 @@
     <a href="{{ route('inventories.entries') }}" class="btn btn-secondary mb-3">Regresar</a>
     <div class="card p-3 mt-2">
         <h4>Productos del proveedor</h4>
-       
+
         @if($items->isEmpty())
             <div class="alert alert-info">
                 No hay items asignados a este proveedor.
@@ -22,18 +22,20 @@
                     </tr>
                 </thead>
                 <tbody>
+
                     @foreach($items as $item)
                         <tr>
                             <td>{{ $item->supplier?->name }}</td>
                             <td>{{ $item->item?->name }}</td>
                             <td>{{ $item->buy_price }}</td>
+
                             <td>{{ $item->sell_price }}</td>
                             <td>
-                                <button 
-                                    class="btn btn-outline-warning btn-sm add-product" 
-                                    data-id="{{ $item->id }}" 
-                                    data-name="{{ $item->item?->name }}" 
-                                    data-buy-price="{{ $item->buy_price }}" 
+                                <button
+                                    class="btn btn-outline-warning btn-sm add-product"
+                                    data-id="{{ $item->id }}"
+                                    data-name="{{ $item->item?->name }}"
+                                    data-buy-price="{{ $item->buy_price }}"
                                     data-sell-price="{{ $item->sell_price }}">
                                     Ingresar Producto
                                 </button>
@@ -61,6 +63,7 @@
                 </thead>
                 <tbody>
                     <input type="hidden" name="supplier_id" value="{{ $supplier->id }}">
+
                 </tbody>
             </table>
             <button type="submit" class="btn btn-primary">Guardar Productos</button>
@@ -74,19 +77,19 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const selectedProductsTable = document.querySelector('#selected-products-table tbody');
-    
+
         document.querySelectorAll('.add-product').forEach(button => {
             button.addEventListener('click', function () {
                 const productId = this.dataset.id;
                 const productName = this.dataset.name;
                 const buyPrice = this.dataset.buyPrice;
                 const sellPrice = this.dataset.sellPrice;
-    
+
                 if (document.querySelector(`#product-row-${productId}`)) {
                     alert('Este producto ya ha sido agregado.');
                     return;
                 }
-    
+
                 const row = document.createElement('tr');
                 row.id = `product-row-${productId}`;
                 row.innerHTML = `
@@ -102,15 +105,14 @@
                     <td>
                         <button type="button" class="btn btn-danger btn-sm remove-product" data-id="${productId}">Eliminar</button>
                     </td>
-                    <input type="hidden" name="products[${productId}][id]" value="${productId}">
+                    <input type="hidden" name="products[${productId}][supplier_product_id]" value="${productId}">
                     <input type="hidden" name="products[${productId}][buy_price]" value="${buyPrice}">
                     <input type="hidden" name="products[${productId}][sell_price]" value="${sellPrice}">
-         
                 `;
-    
+
                 selectedProductsTable.appendChild(row);
-    
-    
+
+
                 row.querySelector('.remove-product').addEventListener('click', function () {
                     row.remove();
                 });

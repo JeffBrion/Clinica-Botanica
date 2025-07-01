@@ -15,11 +15,11 @@
                     </div>
                     <div class="col-md-6 mt-3">
                         <label for="description">Descripción</label>
-                        <input type="text" name="description" id="description" class="form-control" value="{{$item->description}}" required>
+                        <input type="text" name="description" id="description" class="form-control" value="{{$item->description}}" >
                     </div>
                     <div class="col-md-6 mt-3">
                         <label for="category_id">Categoria</label>
-                        <select name="category_id" id="category_id" class="form-control" required>
+                        <select name="category_id" id="category_id" class="form-control">
                             @foreach($categories as $category)
                                 <option value="{{ $category->id }}" {{ old('category_id', $item->category_id) == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
                             @endforeach
@@ -35,7 +35,7 @@
                 </div>
             </form>
         </div>
-    
+
 
     </div>
 </div>

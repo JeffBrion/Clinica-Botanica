@@ -36,7 +36,7 @@ class InventoriesController extends Controller
 
         $request->validate([
             'products' => 'required|array',
-            'products.*.id' => 'required|exists:supplier_products,id',
+            'products.*.supplier_product_id' => 'required|exists:supplier_products,id',
             'products.*.quantity' => 'required|integer|min:1',
             'products.*.expiration_date' => 'required|date',
         ]);
