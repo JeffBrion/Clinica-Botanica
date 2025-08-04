@@ -17,4 +17,18 @@ class SalesController extends Controller
         return view('sales.index', compact('inventories'));
     }
 
+    public function store(Request $request)
+    {
+
+      $requests = request()->validate([
+            'inventory_id' => 'required|exists:inventories,id',
+            'quantity' => 'required|integer|min:1',
+            'customer_name' => 'required|string|max:255',
+            'sale_date' => 'required|date',
+        ]);
+
+        
+
+        return redirect()->route('sales.index')->with('success', 'Venta registrada correctamente.');
+    }
 }
