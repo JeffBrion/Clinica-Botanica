@@ -18,6 +18,7 @@ return new class extends Migration
             $table->date('requested_date');
             $table->integer('quantity');
             $table->date('expiration_date');
+            $table->string('observation')->nullable()->default('No hay observaciones');
             $table->string('status')->default('Agregado');
 
             $table->rememberToken();

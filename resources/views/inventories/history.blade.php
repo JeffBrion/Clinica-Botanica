@@ -23,6 +23,7 @@
                                 <th>Cantidad</th>
                                 <th>Proveedor</th>
                                 <th>Fecha de Ingreso/Salida</th>
+                                <th>Observación</th>
                                 <th>Usuario</th>
                                  <th>Estado</th>
                             </tr>
@@ -35,6 +36,7 @@
                                     <td>{{ $entry->quantity }}</td>
                                     <td>{{ $entry->supplierProduct->supplier->name }}</td>
                                     <td>{{ $entry->requested_date }}</td>
+                                    <td>{{ $entry->observation }}</td>
                                     <td>{{ $entry->createdBy?->name }}</td>
                                     <td>{{ $entry->status }}</td>
                                 </tr>
@@ -44,6 +46,7 @@
                                       <td>{{ $entry->quantity }}</td>
                                       <td>{{ $entry->supplierProduct->supplier->name }}</td>
                                       <td>{{ $entry->requested_date }}</td>
+                                        <td>{{ $entry->observation }}</td>
                                         <td>{{ $entry->createdBy?->name }}</td>
                                       <td>{{ $entry->status }}</td>
                                     </tr>

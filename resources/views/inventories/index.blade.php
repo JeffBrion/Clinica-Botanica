@@ -58,6 +58,10 @@
                                                                 <label for="quantity-{{ $inventory->id }}" class="form-label">Cantidad a eliminar</label>
                                                                 <input type="number" class="form-control" id="quantity-{{ $inventory->id }}" name="quantity" min="1" max="{{ $inventory->quantity }}" required>
                                                             </div>
+                                                            <div>
+                                                                <label for="reason-{{ $inventory->id }}" class="form-label">Razón de eliminación</label>
+                                                                <textarea class="form-control" id="reason-{{ $inventory->id }}" name="reason" rows="3" required></textarea>
+                                                            </div>
                                                             <div class="mb-3 p-2 rounded bg-light">
                                                                 <div class="row">
                                                                     <div class="col-12 col-md-4 mb-2 mb-md-0">

@@ -19,32 +19,25 @@ class SalesController extends Controller
 
     public function store(Request $request)
     {
+     
+        $items = $request->input('items', []);
 
-      $requests = request()->validate([
-            'inventory_id' => 'required|exists:inventories,id',
-            'quantity' => 'required|integer|min:1',
-            'customer_name' => 'required|string|max:255',
-            'sale_date' => 'required|date',
-        ]);
-
-        $inventory = Inventory::find($validatedData['inventory_id']);
-        if ($inventory->quantity < $validatedData['quantity']) {
-            return redirect()->back()->withErrors(['quantity' => 'La cantidad solicitada excede el inventario disponible.']);
-        }
-
-        $inventory->quantity -= $validatedData['quantity'];
-        $inventory->save();
-
-        // Logic to send all data to the view 'bill.index'
         $saleData = [
-            'inventory' => $inventory,
-            'quantity' => $validatedData['quantity'],
-            'customer_name' => $validatedData['customer_name'],
-            'sale_date' => $validatedData['sale_date'],
+            'supplier' => 'Proveedor 1', // Puedes ajustar esto dinámicamente
+            'items' => $items,
         ];
 
-        return redirect()->route('bill.index')->with('saleData', $saleData);
+        // Guardamos los datos de la venta en la sesión para recuperarlos en el método `bill`
+        session(['saleData' => $saleData]);
 
-        return redirect()->route('bill.index')->with('success', 'Venta registrada correctamente.');
+        return redirect()->route('sales.bill', ['sale' => 1])->with('success', 'Venta registrada correctamente.');
+    }
+
+    public function bill($sale)
+    {
+        // Recuperamos los datos de la venta desde la sesión
+        $saleData = session('saleData', []);
+
+        return view('sales.bill', ['sale' => $saleData]);
     }
 }

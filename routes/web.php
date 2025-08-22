@@ -86,6 +86,7 @@ Route::middleware('auth')->group(function () {
     Route::prefix('sales')->middleware('CheckRoles:sales')->group(function () {
         Route::get('index', [SalesController::class, 'index'])->name('sales.index');
         Route::get('show/{sale}', [SalesController::class, 'show'])->name('sales.show');
+        Route::get('bill/{sale}', [SalesController::class, 'bill'])->name('sales.bill');
         Route::post('store', [SalesController::class, 'store'])->name('sales.store');
         Route::put('update/{sale}', [SalesController::class, 'update'])->name('sales.update');
         Route::delete('delete/{sale}', [SalesController::class, 'delete'])->name('sales.delete');

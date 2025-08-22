@@ -17,6 +17,7 @@ class Inventory extends Model
         'quantity',
         'requested_date',
         'expiration_date',
+        'observation',
         'status',
     ];
 

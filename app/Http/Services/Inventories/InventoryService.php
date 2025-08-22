@@ -64,7 +64,7 @@ class InventoryService
 
     public static function historydelete($inventory)
     {
-
+        $reason = is_array($inventory) ? ($inventory['reason'] ?? null) : ($inventory->reason ?? null);
         $inventoryId = is_array($inventory) ? ($inventory['inventory_id'] ?? null) : ($inventory->id ?? $inventory);
         $quantity = is_array($inventory) ? ($inventory['quantity'] ?? 0) : ($inventory->quantity ?? 0);
         $deletedBy = is_array($inventory) ? ($inventory['deleted_by'] ?? auth()->id()) : ($inventory->deleted_by ?? auth()->id());
@@ -78,6 +78,8 @@ class InventoryService
             if ($existingInventory->quantity == $quantity) {
                 $existingInventory->status = 'Eliminado';
                 $existingInventory->created_by = $deletedBy;
+                $existingInventory->observation = $reason;
+
                 $existingInventory->requested_date = now();
                 $existingInventory->save();
 
@@ -87,9 +89,11 @@ class InventoryService
             $existingInventory->save();
             $deletedInventory = $existingInventory->replicate();
             $deletedInventory->quantity = $quantity;
+     
             $deletedInventory->status = 'Eliminado';
             $deletedInventory->created_by = $deletedBy;
             $deletedInventory->requested_date = now();
+            $deletedInventory->observation = $reason;
             $deletedInventory->save();
 
             } else {
