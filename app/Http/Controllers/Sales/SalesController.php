@@ -27,8 +27,24 @@ class SalesController extends Controller
             'sale_date' => 'required|date',
         ]);
 
-        
+        $inventory = Inventory::find($validatedData['inventory_id']);
+        if ($inventory->quantity < $validatedData['quantity']) {
+            return redirect()->back()->withErrors(['quantity' => 'La cantidad solicitada excede el inventario disponible.']);
+        }
 
-        return redirect()->route('sales.index')->with('success', 'Venta registrada correctamente.');
+        $inventory->quantity -= $validatedData['quantity'];
+        $inventory->save();
+
+        // Logic to send all data to the view 'bill.index'
+        $saleData = [
+            'inventory' => $inventory,
+            'quantity' => $validatedData['quantity'],
+            'customer_name' => $validatedData['customer_name'],
+            'sale_date' => $validatedData['sale_date'],
+        ];
+
+        return redirect()->route('bill.index')->with('saleData', $saleData);
+
+        return redirect()->route('bill.index')->with('success', 'Venta registrada correctamente.');
     }
 }
