@@ -26,7 +26,7 @@ Sigue los pasos a continuación para instalar y ejecutar el proyecto en tu máqu
 ### 1. Clonar el repositorio
 Primero, clona el repositorio desde GitHub:
 ```bash
-git clone https://github.com/tu-usuario/clinica-botanica.git
+git clone https://github.com/JeffBrion/Clinica-Botanica.git
 cd clinica-botanica
 
 ### 2. Instalar dependencias

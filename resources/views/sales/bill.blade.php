@@ -1,21 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="add-consultation" style="font-family: Arial, sans-serif; max-width: 800px; margin: auto; border: 1px solid #ddd; padding: 20px; margin-bottom: 20px;">
-    <div style="display: flex; justify-content: space-between; align-items: center;">
-        <h2 style="color: #4CAF50; font-size: 20px; margin: 0;">Agregar Consulta</h2>
-        <button id="toggle-form" style="background-color: #4CAF50; color: white; padding: 10px; border: none; cursor: pointer;">+</button>
-    </div>
-    <form id="consultation-form" method="POST" action="" style="display: none; flex-direction: column; gap: 10px; margin-top: 10px;">
-        @csrf
-        <div style="display: flex; gap: 10px;">
-            <input type="text" name="client_name" placeholder="Nombre del Cliente" style="flex: 1; padding: 10px; border: 1px solid #ddd;">
-            <input type="number" name="consultation_value" placeholder="Valor de la Consulta" style="flex: 1; padding: 10px; border: 1px solid #ddd;">
-        </div>
-        <textarea name="description" placeholder="Descripción" style="padding: 10px; border: 1px solid #ddd; width: 100%;"></textarea>
-        <button type="submit" style="background-color: #4CAF50; color: white; padding: 10px; border: none; cursor: pointer;">Agregar Consulta</button>
-    </form>
-</div>
 
 <script>
     document.getElementById('toggle-form').addEventListener('click', function() {
@@ -37,7 +22,7 @@
 
 
 
-    <table class="invoice-items" style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+    <table class="invoice-items" style="width: 100%; border-collapse: collapse; margin-bottom: 20px; max-height: 400px;">
         <thead>
             <tr style="background-color: #4CAF50; color: white;">
                 <th style="padding: 10px; border: 1px solid #ddd;">Producto</th>
