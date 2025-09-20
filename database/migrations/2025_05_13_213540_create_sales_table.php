@@ -14,16 +14,16 @@ return new class extends Migration
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
             $table->date('sale_date');
+            $table->string('client_name')->nullable();
             $table->rememberToken();
             $table->nullableUserStamps();
             $table->timestamps();
         });
 
-        Schema::create('sales_details', function (Blueprint $table) {
+        Schema::create('sale_details', function (Blueprint $table) {
             $table->id();
             $table->foreignId('sale_id')->constrained('sales')->onDelete('cascade');
-            $table->foreignId('supplier_product_id')->constrained('supplier_products')->onDelete('cascade');
-            $table->string('client_name');
+            $table->foreignId('inventory_id')->constrained('inventories')->onDelete('cascade');
             $table->integer('quantity');
             $table->decimal('price', 10, 2);
             $table->nullableUserStamps();

@@ -19,46 +19,43 @@
                     <table class="table table-striped table-hover m-0" id="users_table">
                         <thead>
                             <tr>
-                               <th>Nombre del Producto</th>
+                                <th>Nombre del Producto</th>
                                 <th>Cantidad</th>
                                 <th>Proveedor</th>
-                                <th>Fecha de Ingreso/Salida</th>
+                                <th>Fecha</th>
                                 <th>Observación</th>
                                 <th>Usuario</th>
-                                 <th>Estado</th>
+                                <th>Estado</th>
                             </tr>
                         </thead>
                         <tbody>
-                                  @foreach($inventories as $entry)
-                                  @if ($entry->status == 'Entrada')
-                                    <tr class="table-success">
-                                    <td>{{ $entry->supplierProduct->item->name}}</td>
+                            @foreach($addedInventories as $entry)
+                                <tr class="table-success">
+                                    <td>{{ $entry->supplierProduct->item->name }}</td>
                                     <td>{{ $entry->quantity }}</td>
                                     <td>{{ $entry->supplierProduct->supplier->name }}</td>
-                                    <td>{{ $entry->requested_date }}</td>
-                                    <td>{{ $entry->observation }}</td>
-                                    <td>{{ $entry->createdBy?->name }}</td>
-                                    <td>{{ $entry->status }}</td>
+                                    <td>{{ $entry->created_at }}</td>
+                                    <td>{{ $entry->reason }}</td>
+                                    <td>{{ $entry->addedBy->name }}</td>
+                                    <td>Agregado</td>
                                 </tr>
-                                  @elseif ($entry->status == 'Eliminado')
-                                    <tr class="table-danger">
-                                      <td>{{ $entry->supplierProduct->item->name}}</td>
-                                      <td>{{ $entry->quantity }}</td>
-                                      <td>{{ $entry->supplierProduct->supplier->name }}</td>
-                                      <td>{{ $entry->requested_date }}</td>
-                                        <td>{{ $entry->observation }}</td>
-                                        <td>{{ $entry->createdBy?->name }}</td>
-                                      <td>{{ $entry->status }}</td>
-                                    </tr>
-                                  @else
-
-                                  @endif
+                            @endforeach
+                            @foreach($deletedInventories as $entry)
+                                <tr class="table-danger">
+                                    <td>{{ $entry->supplierProduct->item->name }}</td>
+                                    <td>{{ $entry->quantity }}</td>
+                                    <td>{{ $entry->supplierProduct->supplier->name }}</td>
+                                    <td>{{ $entry->deleted_at }}</td>
+                                    <td>{{ $entry->reason }}</td>
+                                    <td>{{ $entry->deletedBy->name }}</td>
+                                    <td>Eliminado</td>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>
                 </div>
                 <div>
-                    {{ $inventories->links() }}
+                    {{-- {{ $inventories->links() }} --}}
                 </div>
             </div>
         </div>

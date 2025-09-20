@@ -30,59 +30,38 @@
                         </thead>
                         <tbody>
                             @foreach($inventories as $inventory)
-                            @if ($inventory->status == 'Entrada')
-                                                        <tr>
-                                    <td>{{ $inventory->supplierProduct->item->name }}</td>
-                                    <td>{{ $inventory->quantity }}</td>
-                                    <td>{{ $inventory->supplierProduct->supplier->name }}</td>
-                                    <td>{{ $inventory->supplierProduct->buy_price }}</td>
-                                    <td>{{ $inventory->supplierProduct->sell_price }}</td>
+                                <tr>
+                                    <td>{{ $inventory->supplierProduct->item->name ?? 'N/A' }}</td>
+                                    <td>{{ $inventory->total_quantity }}</td>
+                                    <td>{{ $inventory->supplierProduct->supplier->name ?? 'N/A' }}</td>
+                                    <td>{{ $inventory->supplierProduct->buy_price ?? 'N/A' }}</td>
+                                    <td>{{ $inventory->supplierProduct->sell_price ?? 'N/A' }}</td>
                                     <td>
-                                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ $inventory->id }}">
+                                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ $inventory->supplier_product_id }}">
                                             <i class='bx bx-trash'></i>
                                         </button>
 
                                         <!-- Modal -->
-                                        <div class="modal fade" id="deleteModal-{{ $inventory->id }}" tabindex="-1" aria-labelledby="deleteModalLabel-{{ $inventory->id }}" aria-hidden="true">
+                                        <div class="modal fade" id="deleteModal-{{ $inventory->supplier_product_id }}" tabindex="-1" aria-labelledby="deleteModalLabel-{{ $inventory->supplier_product_id }}" aria-hidden="true">
                                             <div class="modal-dialog">
-                                                <form method="POST" action="{{ route('inventories.history.delete', $inventory->id) }}">
+                                                <form method="POST" action="{{ route('inventories.delete', ['inventory' => $inventory->supplier_product_id]) }}">
                                                     @csrf
+                                                    <input type="hidden" name="_method" value="DELETE">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="deleteModalLabel-{{ $inventory->id }}">Eliminar cantidad de producto</h5>
+                                                            <h5 class="modal-title" id="deleteModalLabel-{{ $inventory->supplier_product_id }}">Eliminar cantidad de producto</h5>
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <input type="hidden" name="inventory_id" value="{{ $inventory->id }}">
+                                                            <input type="hidden" name="supplier_product_id" value="{{ $inventory->supplier_product_id }}">
                                                             <div class="mb-3">
-                                                                <label for="quantity-{{ $inventory->id }}" class="form-label">Cantidad a eliminar</label>
-                                                                <input type="number" class="form-control" id="quantity-{{ $inventory->id }}" name="quantity" min="1" max="{{ $inventory->quantity }}" required>
+                                                                <label for="quantity-{{ $inventory->supplier_product_id }}" class="form-label">Cantidad a eliminar</label>
+                                                                <input type="number" class="form-control" id="quantity-{{ $inventory->supplier_product_id }}" name="quantity" min="1" max="{{ $inventory->total_quantity }}" required>
                                                             </div>
-                                                            <div>
-                                                                <label for="reason-{{ $inventory->id }}" class="form-label">Razón de eliminación</label>
-                                                                <textarea class="form-control" id="reason-{{ $inventory->id }}" name="reason" rows="3" required></textarea>
+                                                            <div class="mb-3">
+                                                                <label for="observation-{{ $inventory->supplier_product_id }}" class="form-label">Observación</label>
+                                                                <textarea class="form-control" id="observation-{{ $inventory->supplier_product_id }}" name="reason" rows="3" required></textarea>
                                                             </div>
-                                                            <div class="mb-3 p-2 rounded bg-light">
-                                                                <div class="row">
-                                                                    <div class="col-12 col-md-4 mb-2 mb-md-0">
-                                                                        <span class="text-muted small">Producto</span><br>
-                                                                        <strong>{{ $inventory->supplierProduct->item->name }}</strong>
-                                                                    </div>
-                                                                    <div class="col-12 col-md-4 mb-2 mb-md-0">
-                                                                        <span class="text-muted small">Proveedor</span><br>
-                                                                        <strong>{{ $inventory->supplierProduct->supplier->name }}</strong>
-                                                                    </div>
-                                                                    <div class="col-12 col-md-4">
-                                                                        <span class="text-muted small">Cantidad actual</span><br>
-                                                                        <strong>{{ $inventory->quantity }}</strong>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <input type="hidden" name="supplier" value="{{ $inventory->supplierProduct->supplier->name }}">
-                                                            <input type="hidden" name="item_name" value="{{ $inventory->supplierProduct->item->name }}">
-                                                            <input type="hidden" name="current_quantity" value="{{ $inventory->quantity }}">
-
-                                                            <p>¿Estás seguro que deseas eliminar esta cantidad del inventario?</p>
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -94,7 +73,6 @@
                                         </div>
                                     </td>
                                 </tr>
-                            @endif
                             @endforeach
                         </tbody>
                     </table>

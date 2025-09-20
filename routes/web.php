@@ -12,6 +12,8 @@ use App\Http\Controllers\Categories\CategoriesController;
 use App\Http\Controllers\Suppliers\SuppliersController;
 use App\Http\Controllers\Inventories\InventoriesController;
 use App\Http\Controllers\Sales\SalesController;
+use App\Http\Controllers\Inventories\DeletedInventoryController;
+
 
 Route::get('/', function () {
     if (auth()->check()) {
@@ -80,14 +82,17 @@ Route::middleware('auth')->group(function () {
         Route::put('update/{inventory}', [InventoriesController::class, 'update'])->name('inventories.update');
         Route::delete('delete/{inventory}', [InventoriesController::class, 'delete'])->name('inventories.delete');
         Route::get('history', [InventoriesController::class, 'history'])->name('inventories.history');
-        Route::post('history/delete/{inventory}', [InventoriesController::class, 'historydelete'])->name('inventories.history.delete');
+        Route::post('deleted-inventories/delete', [InventoriesController::class, 'store'])->name('deleted-inventories.delete');
+        Route::post('history/delete', [InventoriesController::class, 'delete'])->name('inventories.history.delete');
     });
 
     Route::prefix('sales')->middleware('CheckRoles:sales')->group(function () {
         Route::get('index', [SalesController::class, 'index'])->name('sales.index');
         Route::get('show/{sale}', [SalesController::class, 'show'])->name('sales.show');
-        Route::get('bill/{sale}', [SalesController::class, 'bill'])->name('sales.bill');
+        Route::get('/sales/bill/{sale}', [SalesController::class, 'bill'])->name('sales.bill');
+        Route::get('/history', [SalesController::class, 'history'])->name('sales.history');
         Route::post('store', [SalesController::class, 'store'])->name('sales.store');
+        Route::post('create', [SalesController::class, 'create'])->name('sales.create');
         Route::put('update/{sale}', [SalesController::class, 'update'])->name('sales.update');
         Route::delete('delete/{sale}', [SalesController::class, 'delete'])->name('sales.delete');
     });

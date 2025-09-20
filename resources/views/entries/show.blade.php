@@ -97,7 +97,7 @@
                     <td>${buyPrice}</td>
                     <td>${sellPrice}</td>
                     <td>
-                        <input type="date" name="products[${productId}][expiration_date]" class="form-control" required>
+                        <input type="date" name="products[${productId}][expiration_date]" class="form-control">
                     </td>
                     <td>
                         <input type="number" name="products[${productId}][quantity]" class="form-control" min="1" required>
