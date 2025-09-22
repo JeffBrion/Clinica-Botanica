@@ -29,7 +29,7 @@
                             <tr>
                                 <td>{{ $sale->sale_date }}</td>
                                 <td>{{ $sale->client_name?? 'N/A' }}</td>
-                                <td>{{ $sale->user->name }}</td>
+                                <td>{{ $sale->user?->name?? 'Usuario Eliminado'}}</td>
                                   <td>
                                         <a href="{{route('sales.bill', ['sale' => $sale])}}" class="btn btn-primary"><i class='bx bxs-show'></i></a>
                                     </td>

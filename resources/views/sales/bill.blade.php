@@ -19,7 +19,7 @@
             <img src="{{ asset('img/Logo.png') }}" alt="Logo" style="max-width: 150px;" class="logo-img">
             <div style="text-align: right;">
                 <h1 style="color: #4CAF50; font-size: 24px; margin: 0;">Clinica Botanica Diagno-Salud</h1>
-                <p style="margin: 5px 0; font-size: 14px;">Atendido por: {{ Auth::user()->name ?? 'N/A' }}</p>
+                <p style="margin: 5px 0; font-size: 14px;">Atendido por: {{ $sale->user->name ?? 'Usuario Eliminado' }}</p>
                 <p style="margin: 5px 0; font-size: 14px;">Fecha: {{ date('d/m/Y') }}</p>
                 <p style="margin: 5px 0; font-size: 14px;">Nombre del cliente: {{$sale->client_name}}</p>
                 <p style="margin: 5px 0; font-size: 14px; ">De clínica Radiológica Santa Ana, Media cuadra al norte</p>

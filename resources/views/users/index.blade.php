@@ -23,22 +23,23 @@
                                 <option value="Administrador">Administrador</option>
                             </select>
                         </div>
-                        <div class="mt-3 d-none col-md-12 mt-3" id="modules">
-                            <h6>Módulos</h6>
-                            <div class="row user-select-none">
-                                @foreach($modules as $module)
-                                    <div class="col-md-6">
-                                        <div class="form-check">
-                                            <label for="module-{{$module->id}}" class="form-check-label d-flex">
-                                                <input type="checkbox" name="modules[]" id="module-{{$module->id}}" value="{{$module->id}}" class="form-check checkbox-modules">
-                                                <small>{{$module->name}}</small>
-                                            </label>
+                       <div class="mt-4" id="modules">
+                        <h6 class="mb-3">Selecciona los Módulos</h6>
+                        <div class="row g-3">
+                            @foreach($modules as $module)
+                                <div class="col-md-4">
+                                    <input type="checkbox" class="btn-check" id="module-{{$module->id}}" name="modules[]" value="{{$module->id}}">
+                                    <label class="card btn btn-outline-primary text-start h-100" for="module-{{$module->id}}">
+                                        <div class="card-body py-3">
+                                            <h6 class="card-title mb-0">{{$module->name}}</h6>
                                         </div>
-                                    </div>
-                                @endforeach
-                            </div>
+                                    </label>
+                                </div>
+                            @endforeach
                         </div>
-                        
+                    </div>
+
+
                         <div class="col-md-12 mt-2">
                             <button type="submit" class="btn btn-outline-secondary">Agregar</button>
                         </div>
