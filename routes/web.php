@@ -12,7 +12,8 @@ use App\Http\Controllers\Categories\CategoriesController;
 use App\Http\Controllers\Suppliers\SuppliersController;
 use App\Http\Controllers\Inventories\InventoriesController;
 use App\Http\Controllers\Sales\SalesController;
-use App\Http\Controllers\Inventories\DeletedInventoryController;
+use App\Http\Controllers\Tests\TestController;
+use App\Http\Controllers\Reports\ReportController;
 
 
 Route::get('/', function () {
@@ -89,12 +90,23 @@ Route::middleware('auth')->group(function () {
     Route::prefix('sales')->middleware('CheckRoles:sales')->group(function () {
         Route::get('index', [SalesController::class, 'index'])->name('sales.index');
         Route::get('show/{sale}', [SalesController::class, 'show'])->name('sales.show');
-        Route::get('/sales/bill/{sale}', [SalesController::class, 'bill'])->name('sales.bill');
-        Route::get('/history', [SalesController::class, 'history'])->name('sales.history');
+        Route::get('sales/bill/{sale}', [SalesController::class, 'bill'])->name('sales.bill');
+        Route::get('history', [SalesController::class, 'history'])->name('sales.history');
         Route::post('store', [SalesController::class, 'store'])->name('sales.store');
         Route::post('create', [SalesController::class, 'create'])->name('sales.create');
         Route::put('update/{sale}', [SalesController::class, 'update'])->name('sales.update');
         Route::delete('delete/{sale}', [SalesController::class, 'delete'])->name('sales.delete');
     });
 
+    Route::prefix('test')->middleware('CheckRoles:tests')->group(function () {
+        Route::get('index', [TestController::class, 'index'])->name('test.index');
+        Route::get('show{test}', [TestController::class, 'create'])->name('test.create');
+        Route::post('store', [TestController::class, 'store'])->name('test.store');
+        Route::delete('delete/{test}', [TestController::class, 'delete'])->name('test.delete');
+    });
+
+    Route::prefix('reports')->middleware('CheckRoles:reports')->group(function () {
+        route::get('index', [ReportController::class, 'index'])->name('reports.index');
+
+    });
 });

@@ -109,9 +109,9 @@
 
        <style>
     @media print {
-        /* Forzar tamaño A5 */
+
         @page {
-            size: A5;
+            size: A6;
             margin: 0.5cm;
         }
 
@@ -126,7 +126,7 @@
             left: 0;
             top: 0;
             width: 148mm;
-            height: 210mm;
+            height: 207mm;
             padding: 10px;
             border: none;
             box-shadow: none;
