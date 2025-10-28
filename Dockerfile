@@ -10,6 +10,9 @@ COPY . .
 FROM php:8.3-apache
 WORKDIR /var/www/html
 
+# Disponibilizar Composer también en la imagen final (Railway a veces invoca `composer` en Start Command)
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
 # Instalar extensiones necesarias para Laravel
 RUN apt-get update && apt-get install -y \
     libpng-dev \
