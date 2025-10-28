@@ -10,14 +10,38 @@ if [ -n "$PORT" ]; then
   sed -ri "s#<VirtualHost \*:.*>#<VirtualHost *:${PORT}>#" /etc/apache2/sites-available/000-default.conf || true
 fi
 
+# Asegurar .env y APP_KEY si no está configurado por variables de entorno
+if [ ! -f .env ] && [ -f .env.example ]; then
+  echo "[entrypoint] Copiando .env desde .env.example"
+  cp .env.example .env || true
+fi
+
+if [ -z "${APP_KEY}" ]; then
+  echo "[entrypoint] APP_KEY no definido; generando uno temporal para este entorno"
+  GENERATED_KEY=$(php artisan key:generate --show 2>/dev/null || true)
+  if [ -n "$GENERATED_KEY" ]; then
+    export APP_KEY="$GENERATED_KEY"
+    # Persistir en .env para futuros arranques del mismo contenedor
+    if [ -f .env ]; then
+      if grep -q '^APP_KEY=' .env; then
+        sed -i "s#^APP_KEY=.*#APP_KEY=${APP_KEY}#g" .env || true
+      else
+        echo "APP_KEY=${APP_KEY}" >> .env
+      fi
+    fi
+  else
+    echo "[entrypoint] No se pudo generar APP_KEY; verifica que PHP/Artisan esté operativo" >&2
+  fi
+fi
+
 # Asegurar enlace de storage/public
 if [ ! -e "public/storage" ]; then
   echo "[entrypoint] Creando storage:link"
   php artisan storage:link || true
 fi
 
-# Cache de config y rutas (no falla si .env existe)
-echo "[entrypoint] Cacheando config y rutas"
+# Cache de config y rutas (continúa aunque fallen)
+echo "[entrypoint] Cacheando config, rutas y vistas"
 php artisan config:clear || true
 php artisan route:clear || true
 php artisan view:clear || true
