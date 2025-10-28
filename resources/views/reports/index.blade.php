@@ -9,27 +9,20 @@
         @endif
 
         <style>
-            .hero-reports {
-                background: linear-gradient(135deg, #22c55e 0%, #4f46e5 100%);
-                color: #fff;
-            }
-            .table-sticky thead th {
-                position: sticky;
-                top: 0;
-                z-index: 2;
-                background: #f8fafc;
-            }
+            /* Alineado al estilo de Items */
+            .reports-hero{ background: linear-gradient(135deg, rgba(25,135,84,0.10) 0%, rgba(25,135,84,0.02) 100%); border-bottom: 1px solid rgba(0,0,0,0.05); }
+            .hero-icon{ width: 40px; height: 40px; background:#198754; color:#fff; font-size: 20px; }
+            .table-sticky thead th { position: sticky; top: 0; z-index: 1; background: #f8fafc; }
         </style>
 
-        <div class="card border-0 shadow rounded-4 overflow-hidden mt-4">
-            <div class="hero-reports p-4 p-md-5 d-flex align-items-center justify-content-between">
-                <div class="me-4">
-                    <span class="badge rounded-pill bg-white text-dark mb-2" style="opacity:.9">Reportes</span>
-                    <h2 class="h4 mb-2">Generar reportes</h2>
-                    <p class="mb-0" style="color: rgba(255,255,255,.9)">Elige tipo y rango de fechas para crear un nuevo reporte.</p>
-                </div>
-                <div class="d-none d-md-block">
-                    <i class='bx bxs-report' style="font-size:64px; opacity:.9"></i>
+        <div class="card border-0 shadow-sm mt-4">
+            <div class="card-header bg-white border-0 pb-0">
+                <div class="d-flex align-items-center gap-2">
+                    <div class="hero-icon rounded-circle d-inline-flex align-items-center justify-content-center"><i class='bx bxs-report'></i></div>
+                    <div>
+                        <h5 class="mb-0">Generar Reporte</h5>
+                        <small class="text-muted">Elige tipo y rango de fechas para crear un nuevo reporte.</small>
+                    </div>
                 </div>
             </div>
             <div class="card-body">
@@ -69,24 +62,37 @@
             </div>
         </div>
 
-        <div class="card border-0 shadow rounded-4 mt-4">
-            <div class="card-header bg-white d-flex align-items-center justify-content-between">
-                <div class="col-8">
-                    <x-search-bar :table="'reports_table'"/>
+        <div class="card border-0 shadow-sm overflow-hidden mt-4">
+            <div class="reports-hero d-flex flex-wrap align-items-center justify-content-between p-3">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="hero-icon rounded-circle d-inline-flex align-items-center justify-content-center"><i class='bx bx-list-ul'></i></div>
+                    <div>
+                        <h5 class="mb-1">Reportes</h5>
+                        <div class="text-muted small">Listado de reportes generados.</div>
+                    </div>
                 </div>
-                <h5 class="mb-0">Historial de reportes</h5>
+                <div class="d-flex align-items-center gap-2 mt-2 mt-md-0">
+                    <span class="badge rounded-pill bg-success-subtle text-success fw-semibold px-3 py-2">
+                        <i class='bx bx-layer me-1'></i> {{ method_exists($reports, 'total') ? $reports->total() : count($reports) }} en total
+                    </span>
+                </div>
             </div>
-            <div class="card-body p-0">
-                <div class="table-responsive table-sticky">
-                    <table class="table table-hover align-middle mb-0" id="reports_table">
-                        <thead class="table-light">
+            <div class="card-body">
+                <div class="row g-2 mb-2">
+                    <div class="col-12">
+                        <x-search-bar :table="'reports_table'"/>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover m-0" id="reports_table">
+                        <thead class="table-light sticky-top">
                             <tr>
                                 <th>Tipo</th>
                                 <th>Inicio</th>
                                 <th>Fin</th>
                                 <th>Generado</th>
                                 <th>Creado por</th>
-                                <th class="text-end">Opciones</th>
+                                <th style="width: 140px;" class="text-end">Opciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -100,10 +106,8 @@
                                     <td>{{ $report->create_date }}</td>
                                     <td>{{ $report->user->name ?? 'N/A' }}</td>
                                     <td class="text-end">
-                                        <a href="{{ route('reports.show', ['report' => $report]) }}" class="btn btn-sm btn-outline-primary">
-                                            <i class='bx bxs-show me-1'></i> Ver
-                                        </a>
-                                        {{-- <button class="delete-button btn btn-sm btn-outline-danger" data-url="{{ route('reports.delete', ['report' => $report]) }}"><i class='bx bxs-trash-alt'></i></button> --}}
+                                        <a href="{{ route('reports.show', ['report' => $report]) }}" class="btn btn-outline-primary btn-sm" title="Ver"><i class='bx bxs-show'></i> Ver</a>
+                                        {{-- <button class="delete-button btn btn-outline-danger btn-sm" data-url="{{ route('reports.delete', ['report' => $report]) }}" title="Eliminar"><i class='bx bxs-trash-alt'></i></button> --}}
                                     </td>
                                 </tr>
                             @empty
@@ -114,9 +118,9 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
-            <div class="card-footer bg-white">
-                {{ $reports->links() }}
+                <div class="mt-2">
+                    {{ $reports->links() }}
+                </div>
             </div>
         </div>
 
