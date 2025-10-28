@@ -4,149 +4,150 @@
     ['route' => 'test.index', 'name' => 'Nueva Consulta', 'active' => true],
     ['route' => 'test.show', 'name' => 'Historial', 'active' => false],
 ]"/>
-<div class="container">
-    <div class="row">
-        <div class="col-lg-12">
-            <h5>Nueva Consulta Médica</h5>
+<div class="container mt-3">
+    <div class="card border-0 shadow-sm overflow-hidden">
+        <div class="consult-hero d-flex flex-wrap align-items-center justify-content-between p-3">
+            <div class="d-flex align-items-center gap-3">
+                <div class="hero-icon rounded-circle d-inline-flex align-items-center justify-content-center"><i class='bx bx-first-aid'></i></div>
+                <div>
+                    <h5 class="mb-1">Nueva Consulta Médica</h5>
+                    <div class="text-muted small">Registra los datos del paciente y su tratamiento.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body">
             @if(session('success'))
-                <div class="alert alert-success alert-dismissible fade show mt-2" role="alert">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
                     {{ session('success') }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
+
             <form action="{{ route('test.store') }}" method="POST" id="consultation-form">
                 @csrf
-            <div class="card p-3 mt-2">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h5 class="section-title"><i class='bx bx-user-circle me-1'></i> Datos del Paciente</h5>
-                    </div>
 
-                        <div class="form-group col-md-4 mt-3">
-                            <label for="patient_name">Nombre Completo</label>
-                            <input type="text" name="patient_name" id="patient_name" class="form-control" required>
-                        </div>
-
-                    <div class="form-group col-md-4 mt-3">
-                        <label for="consultation_date">Fecha de Consulta</label>
-                        <input type="datetime-local" name="consultation_date" id="consultation_date"
-                               class="form-control" value="{{ now()->format('Y-m-d\TH:i') }}" required>
-                    </div>
-
-                    <div class="form-group col-md-4 mt-3">
-                        <label for="consultation_type">Tipo de Consulta</label>
-                        <select name="consultation_type" id="consultation_type" class="form-control" required>
-                            <option value="primera_vez">Primera Vez</option>
-                            <option value="control">Control</option>
-                            <option value="emergencia">Emergencia</option>
-                            <option value="seguimiento">Seguimiento</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="card p-3 mt-2">
-                <div class="row">
-                     <div class="col-md-12 mt-4">
-                        <h5 class="section-title"><i class='bx bx-notepad me-1'></i> Información Médica</h5>
-                    </div>
-
-                    <div class="form-group col-md-12 mt-3">
-                        <label for="symptoms">Síntomas y Motivo de Consulta</label>
-                        <textarea name="symptoms" id="symptoms" class="form-control"
-                                  rows="3" placeholder="" required></textarea>
-                    </div>
-
-                    <div class="form-group col-md-3 mt-3">
-                        <div class="form-check mt-4">
-                            <input class="form-check-input" type="checkbox" value="1" id="is_chronic" name="is_chronic">
-                            <label class="form-check-label" for="is_chronic">
-                                ¿Enfermedad crónica?
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="form-group col-md-3 mt-3">
-                        <label for="weight">Peso (kg)</label>
-                        <input type="number" step="0.1" min="0" max="1000" name="weight" id="weight" class="form-control" placeholder="Ej: 70.5">
-                    </div>
-
-                    <div class="form-group col-md-3 mt-3">
-                        <label for="blood_pressure">Presión arterial</label>
-                        <input type="text" name="blood_pressure" id="blood_pressure" class="form-control" placeholder="Ej: 120/80">
-                    </div>
-
-                    <div class="form-group col-md-3 mt-3">
-                        <label for="heart_rate">Ritmo cardiaco (bpm)</label>
-                        <input type="number" min="0" max="300" name="heart_rate" id="heart_rate" class="form-control" placeholder="Ej: 72">
-                    </div>
-
-                    <div class="form-group col-md-12 mt-3">
-                        <label for="diagnosis">Diagnóstico</label>
-                        <textarea name="diagnosis" id="diagnosis" class="form-control"
-                                  rows="2" placeholder=""></textarea>
-                    </div>
-                </div>
-            </div>
-            <div class="card p-3 mt-3 mb-3">
-                <div class="row">
-                        <div class="col-md-12 mt-4">
-                        <h5 class="section-title"><i class='bx bx-capsule me-1'></i> Tratamiento y Medicamentos</h5>
-                    </div>
-
-                    <div class="form-group col-md-12 mt-3">
-                        <label for="treatment">Tratamiento Indicado</label>
-                        <textarea name="treatment" id="treatment" class="form-control"
-                                  rows="3"></textarea>
-                    </div>
-                                        <div class="col-md-12 mt-3">
-                        <label>Medicamentos Recetados</label>
-                        <div class="row medication-header text-secondary fw-semibold small g-0 mb-2 d-none d-md-flex">
-                            <div class="col-md-5 ps-2">Medicamento</div>
-                            <div class="col-md-2">Cantidad</div>
-                            <div class="col-md-3">Instrucciones</div>
-                            <div class="col-md-2">Acciones</div>
-                        </div>
-                        <div id="medications-container">
-                            <div class="medication-item row mb-2">
-                                <div class="col-md-5">
-                                    <input type="text" class="form-control medication-search mb-1" placeholder="Buscar medicamento...">
-                                    <select name="medications[0][product_id]" class="form-control medication-select">
-                                        <option value="">Seleccionar medicamento</option>
-                                    </select>
-                                    <small class="text-muted d-block stock-hint"></small>
-                                </div>
-                                <div class="col-md-2">
-                                    <input type="number" name="medications[0][quantity]"
-                                           class="form-control" placeholder="Cantidad" min="1">
-                                </div>
-                                <div class="col-md-3">
-                                    <input type="text" name="medications[0][instructions]"
-                                           class="form-control" placeholder="Instrucciones">
-                                </div>
-                                <div class="col-md-2">
-                                    <button type="button" class="btn btn-danger remove-medication" disabled>
-                                        <i class='bx bx-trash'></i>
-                                    </button>
+                <!-- Datos del paciente -->
+                <div class="card border-0 shadow-xs mb-3">
+                    <div class="card-body">
+                        <h6 class="section-title mb-3"><i class='bx bx-user-circle me-1'></i> Datos del Paciente</h6>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label for="patient_name" class="form-label">Nombre Completo</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white"><i class='bx bx-user'></i></span>
+                                    <input type="text" name="patient_name" id="patient_name" class="form-control" required>
                                 </div>
                             </div>
-                        </div>
-                        <button type="button" id="add-medication" class="btn btn-sm btn-outline-secondary mt-2">
-                            <i class='bx bx-plus'></i> Agregar Medicamento
-                        </button>
-
-                        <div class="d-flex justify-content-end mt-2">
-                            <small class="text-muted" id="medication-summary">Medicamentos: 0 | Cantidad total: 0</small>
-                        </div>
-
-                        <div class="col-md-12 mt-4">
-                            <button type="submit" class="btn btn-primary">Guardar Consulta</button>
-                            <a href="{{ route('test.index') }}" class="btn btn-outline-secondary">Cancelar</a>
+                            <div class="col-md-4">
+                                <label for="consultation_date" class="form-label">Fecha de Consulta</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white"><i class='bx bx-calendar'></i></span>
+                                    <input type="datetime-local" name="consultation_date" id="consultation_date" class="form-control" value="{{ now()->format('Y-m-d\TH:i') }}" required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="consultation_type" class="form-label">Tipo de Consulta</label>
+                                <select name="consultation_type" id="consultation_type" class="form-select" required>
+                                    <option value="primera_vez">Primera Vez</option>
+                                    <option value="control">Control</option>
+                                    <option value="emergencia">Emergencia</option>
+                                    <option value="seguimiento">Seguimiento</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
-
-
                 </div>
-            </div>
+
+                <!-- Información médica -->
+                <div class="card border-0 shadow-xs mb-3">
+                    <div class="card-body">
+                        <h6 class="section-title mb-3"><i class='bx bx-notepad me-1'></i> Información Médica</h6>
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label for="symptoms" class="form-label">Síntomas y Motivo de Consulta</label>
+                                <textarea name="symptoms" id="symptoms" class="form-control" rows="3" required></textarea>
+                            </div>
+                            <div class="col-md-3 d-flex align-items-center">
+                                <div class="form-check mt-4">
+                                    <input class="form-check-input" type="checkbox" value="1" id="is_chronic" name="is_chronic">
+                                    <label class="form-check-label" for="is_chronic">¿Enfermedad crónica?</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="weight" class="form-label">Peso (kg)</label>
+                                <input type="number" step="0.1" min="0" max="1000" name="weight" id="weight" class="form-control" placeholder="Ej: 70.5">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="blood_pressure" class="form-label">Presión arterial</label>
+                                <input type="text" name="blood_pressure" id="blood_pressure" class="form-control" placeholder="Ej: 120/80">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="heart_rate" class="form-label">Ritmo cardiaco (bpm)</label>
+                                <input type="number" min="0" max="300" name="heart_rate" id="heart_rate" class="form-control" placeholder="Ej: 72">
+                            </div>
+                            <div class="col-12">
+                                <label for="diagnosis" class="form-label">Diagnóstico</label>
+                                <textarea name="diagnosis" id="diagnosis" class="form-control" rows="2"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tratamiento y medicamentos -->
+                <div class="card border-0 shadow-xs mb-2">
+                    <div class="card-body">
+                        <h6 class="section-title mb-3"><i class='bx bx-capsule me-1'></i> Tratamiento y Medicamentos</h6>
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label for="treatment" class="form-label">Tratamiento Indicado</label>
+                                <textarea name="treatment" id="treatment" class="form-control" rows="3"></textarea>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Medicamentos Recetados</label>
+                                <div class="row medication-header text-secondary fw-semibold small g-0 mb-2 d-none d-md-flex">
+                                    <div class="col-md-5 ps-2">Medicamento</div>
+                                    <div class="col-md-2">Cantidad</div>
+                                    <div class="col-md-3">Instrucciones</div>
+                                    <div class="col-md-2">Acciones</div>
+                                </div>
+                                <div id="medications-container">
+                                    <div class="medication-item row mb-2">
+                                        <div class="col-md-5">
+                                            <input type="text" class="form-control medication-search mb-1" placeholder="Buscar medicamento...">
+                                            <select name="medications[0][product_id]" class="form-control medication-select">
+                                                <option value="">Seleccionar medicamento</option>
+                                            </select>
+                                            <small class="text-muted d-block stock-hint"></small>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <input type="number" name="medications[0][quantity]" class="form-control" placeholder="Cantidad" min="1">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="text" name="medications[0][instructions]" class="form-control" placeholder="Instrucciones">
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button type="button" class="btn btn-outline-danger remove-medication" disabled>
+                                                <i class='bx bx-trash'></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="button" id="add-medication" class="btn btn-sm btn-outline-secondary mt-2">
+                                    <i class='bx bx-plus'></i> Agregar Medicamento
+                                </button>
+
+                                <div class="d-flex justify-content-end mt-2">
+                                    <small class="text-muted" id="medication-summary">Medicamentos: 0 | Cantidad total: 0</small>
+                                </div>
+                            </div>
+                            <div class="col-12 d-flex gap-2 justify-content-end mt-2">
+                                <button type="submit" class="btn btn-success"><i class='bx bx-save'></i> Guardar Consulta</button>
+                                <a href="{{ route('test.index') }}" class="btn btn-outline-secondary">Cancelar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
@@ -349,5 +350,8 @@ document.addEventListener('DOMContentLoaded', function () {
 .medication-item:last-child {
     border-bottom: none;
 }
+.consult-hero{ background: linear-gradient(135deg, rgba(25,135,84,0.10) 0%, rgba(25,135,84,0.02) 100%); border-bottom: 1px solid rgba(0,0,0,0.05); }
+.hero-icon{ width: 44px; height: 44px; background:#198754; color:#fff; font-size: 22px; }
+.shadow-xs{ box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
 </style>
 @endsection

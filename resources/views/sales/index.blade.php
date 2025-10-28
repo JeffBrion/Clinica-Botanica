@@ -5,55 +5,61 @@
     ['route' => 'sales.index', 'name' => 'Realizar Venta', 'active' => true],
     ['route' => 'sales.history', 'name' => 'Ventas', 'active' => false],
 ]"/>
-<div class="container">
-    <div class="col-lg-12 mt-4">
-        <h5>Registrar Ventas</h5>
-        <div class="card p-3">
-            <div class="row justify-content-end">
-                <div class="col-md-12">
+<div class="container mt-3">
+    <div class="card border-0 shadow-sm overflow-hidden">
+        <div class="sales-hero d-flex flex-wrap align-items-center justify-content-between p-3">
+            <div class="d-flex align-items-center gap-3">
+                <div class="hero-icon rounded-circle d-inline-flex align-items-center justify-content-center"><i class='bx bx-cart-alt'></i></div>
+                <div>
+                    <h5 class="mb-1">Registrar Ventas</h5>
+                    <div class="text-muted small">Selecciona ítems del inventario y agrégalos al carrito.</div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card-body">
+            <div class="row g-2 mb-2">
+                <div class="col-12">
                     <x-search-bar :table="'users_table'"/>
                 </div>
             </div>
-            <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
-                <table class="table table-striped table-hover m-0" id="users_table">
-                    <thead>
+            <div class="table-responsive" style="max-height: 420px; overflow-y: auto;">
+                <table class="table table-hover m-0" id="users_table">
+                    <thead class="table-light sticky-top">
                         <tr>
-                            <th>ID</th>
-                            <th>Nombre del Producto</th>
-                            <th>Cantidad en stock</th>
+                            <th style="width: 70px;">ID</th>
+                            <th>Producto</th>
+                            <th class="text-end" style="width: 140px;">Stock</th>
                             <th>Proveedor</th>
                             <th>Descripción</th>
-                            <th>Cantidad a vender</th>
-                            <th>Precio</th>
-                            <th>Opciones</th>
+                            <th style="width: 140px;">Vender</th>
+                            <th class="text-end" style="width: 140px;">Precio</th>
+                            <th style="width: 140px;">Opciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($inventories as $inventory)
                             <tr>
                                 <td>{{ $inventory->id }}</td>
-                                <td>{{ $inventory->supplierProduct->item->name ?? 'N/A' }}</td>
-                                <td>{{ $inventory->quantity }}</td>
+                                <td class="fw-medium">{{ $inventory->supplierProduct->item->name ?? 'N/A' }}</td>
+                                <td class="text-end">{{ $inventory->quantity }}</td>
                                 <td>{{ $inventory->supplierProduct->supplier->name ?? 'N/A' }}</td>
-                                <td>{{ $inventory->supplierProduct->item->description ?? 'N/A' }}</td>
+                                <td class="text-truncate" style="max-width: 280px;" title="{{ $inventory->supplierProduct->item->description ?? 'N/A' }}">{{ $inventory->supplierProduct->item->description ?? 'N/A' }}</td>
                                 <td>
-                                    <input type="number" class="form-control quantity-input"
-                                           min="1" max="{{ $inventory->total_quantity }}"
-                                           value="1">
+                                    <input type="number" class="form-control quantity-input" min="1" max="{{ $inventory->total_quantity }}" value="1">
                                 </td>
-
-                                <td>{{ $inventory->supplierProduct->sell_price ?? 'N/A' }}</td>
+                                <td class="text-end">{{ $inventory->supplierProduct->sell_price ?? 'N/A' }}</td>
                                 <td>
-                                    <button class="btn btn-sm btn-primary add-to-cart-btn"
+                                    <button class="btn btn-sm btn-outline-primary add-to-cart-btn"
                                         data-product-name="{{ $inventory->supplierProduct->item->name ?? 'N/A' }}"
                                         data-product-price="{{ $inventory->supplierProduct->sell_price ?? 0 }}"
                                         data-supplier-name="{{ $inventory->supplierProduct->supplier->name ?? 'N/A' }}"
                                         data-inventory-id="{{ $inventory->id }}">
-                                    Agregar al Carrito
-                                    <i class="bx bx-cart"></i>
+                                        <i class="bx bx-cart"></i> Agregar
                                     </button>
 
-                                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ $inventory->supplier_product_id }}">
+                                    <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ $inventory->supplier_product_id }}">
                                         <i class='bx bx-trash'></i>
                                     </button>
 
@@ -65,7 +71,7 @@
                                                 <input type="hidden" name="supplier_product_id" value="{{ $inventory->supplier_product_id }}">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="deleteModalLabel-{{ $inventory->supplier_product_id }}">Eliminar productos del grupo</h5>
+                                                        <h5 class="modal-title" id="deleteModalLabel-{{ $inventory->supplier_product_id }}"><i class='bx bx-trash me-1'></i> Eliminar productos del grupo</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                                                     </div>
                                                     <div class="modal-body">
@@ -86,14 +92,17 @@
                     </tbody>
                 </table>
             </div>
-            <div>
+            <div class="mt-2">
                 {{-- {{ $inventories->links() }} --}}
             </div>
         </div>
     </div>
 
-    <div class="card p-3 mt-4">
-        <h5 class="mt-2"> Carrito </h5>
+    <div class="card border-0 shadow-sm p-3 mt-4">
+        <div class="d-flex align-items-center gap-2">
+            <div class="hero-icon rounded-circle d-inline-flex align-items-center justify-content-center" style="width:36px;height:36px;font-size:18px;"><i class='bx bx-basket'></i></div>
+            <h5 class="mb-0">Carrito</h5>
+        </div>
         <form action="{{ route('sales.store') }}" method="POST" id="sales-form">
             @csrf
             <div id="cart-container">
@@ -261,3 +270,9 @@
     </div>
 </div>
 @endsection
+
+<style>
+.sales-hero{ background: linear-gradient(135deg, rgba(25,135,84,0.10) 0%, rgba(25,135,84,0.02) 100%); border-bottom: 1px solid rgba(0,0,0,0.05); }
+.hero-icon{ width: 44px; height: 44px; background:#198754; color:#fff; font-size: 22px; }
+thead.sticky-top th{ position: sticky; top: 0; z-index: 1; }
+</style>
