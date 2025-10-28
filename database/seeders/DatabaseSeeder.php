@@ -63,6 +63,12 @@ class DatabaseSeeder extends Seeder
                 'access_route_name' => 'reports.index',
                 'icon' => 'bx bx-bar-chart-alt nav_icon',
             ],
+            [
+            'name' => 'Notificaciones',
+                'internal_name' => 'notifications',
+                'access_route_name' => 'inventories.alerts',
+                'icon' => 'bx bx-bell nav_icon',
+            ]
 
         ];
 
@@ -75,9 +81,6 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        // Pacientes demo
-        if (Patient::count() === 0) {
-            Patient::factory()->count(25)->create();
-        }
+  
     }
 }

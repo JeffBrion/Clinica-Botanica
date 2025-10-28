@@ -4,6 +4,7 @@
     ['route' => 'inventories.index', 'name' => 'Inventario', 'active' => true],
     ['route' => 'inventories.entries', 'name' => 'Entradas', 'active' => false],
     ['route' => 'inventories.history', 'name' => 'Historial', 'active' => false],
+    
 ]"/>
 
 <div class="container">

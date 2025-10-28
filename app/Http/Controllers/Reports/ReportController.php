@@ -9,6 +9,7 @@ use App\Models\Reports\Report;
 
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class ReportController extends Controller
 {
@@ -43,7 +44,7 @@ class ReportController extends Controller
         $report->start_date = $startDate;
         $report->end_date = $endDate;
         $report->create_date = now();
-        $report->created_by = auth()->id();
+    $report->created_by = Auth::id();
         $report->save();
 
         return back()->with('success', 'Reporte creado exitosamente.');

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\Tests\Questions\QuestionsController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PanelController;
@@ -11,14 +12,15 @@ use App\Http\Controllers\Items\ItemsController;
 use App\Http\Controllers\Categories\CategoriesController;
 use App\Http\Controllers\Suppliers\SuppliersController;
 use App\Http\Controllers\Inventories\InventoriesController;
+use App\Http\Controllers\Inventories\StockAlertsController;
 use App\Http\Controllers\Sales\SalesController;
 use App\Http\Controllers\Tests\TestController;
 use App\Http\Controllers\Reports\ReportController;
 
 
 Route::get('/', function () {
-    if (auth()->check()) {
-        if(auth()->user()->role == 'Trabajador')
+    if (Auth::check()) {
+        if(Auth::user()->role == 'Trabajador')
         {
             return redirect()->route('test.users.index');
         }
@@ -76,6 +78,7 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('inventories')->middleware('CheckRoles:inventories')->group(function () {
         Route::get('index', [InventoriesController::class, 'index'])->name('inventories.index');
+        Route::get('alerts', [StockAlertsController::class, 'index'])->name('inventories.alerts');
         Route::get('entries', [InventoriesController::class, 'entries'])->name('inventories.entries');
         Route::get('entries/item/{supplier}', [InventoriesController::class, 'entriesItems'])->name('inventory.entriesItems');
         Route::get('show/{inventory}', [InventoriesController::class, 'show'])->name('inventories.show');
