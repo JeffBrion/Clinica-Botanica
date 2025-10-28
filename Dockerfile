@@ -3,7 +3,7 @@ FROM composer:2 AS build
 WORKDIR /app
 COPY composer.json composer.lock ./
 ENV COMPOSER_ALLOW_SUPERUSER=1
-RUN composer install --no-dev --prefer-dist --no-progress --no-interaction --no-scripts
+RUN composer install --no-dev --prefer-dist --no-progress --no-interaction --no-scripts --ignore-platform-req=ext-gd
 COPY . .
 
 # Etapa 2: Servidor PHP con Apache
