@@ -13,11 +13,12 @@ class CreateInventoryEntriesTable extends Migration
             $table->unsignedBigInteger('supplier_product_id');
             $table->integer('quantity');
             $table->string('reason');
-            $table->unsignedBigInteger('created_by');
-            $table->timestamps();
 
             $table->foreign('supplier_product_id')->references('id')->on('supplier_products')->onDelete('cascade');
-            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
+
+            $table->rememberToken();
+            $table->nullableUserStamps();
+            $table->timestamps();
         });
     }
 

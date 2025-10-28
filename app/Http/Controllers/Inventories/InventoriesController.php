@@ -87,8 +87,8 @@ class InventoriesController extends Controller
 
     public function history()
     {
-        $deletedInventories = DeletedInventory::with(['supplierProduct', 'deletedBy'])->orderBy('deleted_at', 'desc')->get();
-        $addedInventories = InventoryAdded::with(['supplierProduct', 'addedBy'])->orderBy('created_at', 'desc')->get();
+        $deletedInventories = DeletedInventory::with(['supplierProduct'])->get();
+        $addedInventories = InventoryAdded::with(['supplierProduct'])->get();
 
         return view('inventories.history', compact('deletedInventories', 'addedInventories'));
     }
@@ -101,14 +101,11 @@ class InventoriesController extends Controller
             'reason' => 'required|string|max:255',
         ]);
 
-        $userId = Auth::id();
 
         DeletedInventory::create([
             'supplier_product_id' => $request->supplier_product_id,
             'quantity' => $request->quantity,
             'reason' => $request->reason,
-            'deleted_by' => $userId,
-            'deleted_at' => now(),
         ]);
 
         $remainingQuantity = $request->quantity;
@@ -169,8 +166,7 @@ class InventoriesController extends Controller
                 'supplier_product_id' => $request->supplier_product_id,
                 'quantity' => $request->quantity,
                 'status' => 'Entrada',
-                'created_by' => $userId,
-                'updated_by' => $userId,
+
             ]);
         }
 

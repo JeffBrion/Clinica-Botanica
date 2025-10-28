@@ -5,9 +5,12 @@ namespace App\Models\Sales;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
+use Everth\UserStamps\UserStampsTrait;
 
 class Sale extends Model
 {
+    use UserStampsTrait;
+
     use HasFactory;
 
     /**
@@ -18,6 +21,7 @@ class Sale extends Model
     protected $fillable = [
         'sale_date',
         'client_name',
+        'total_amount',
         'created_by',
     ];
 
@@ -26,7 +30,7 @@ class Sale extends Model
      */
     public function details()
     {
-        return $this->hasMany(SaleDetail::class);
+        return $this->hasMany(SaleDetail::class, 'sale_id');
     }
     public function user()
     {

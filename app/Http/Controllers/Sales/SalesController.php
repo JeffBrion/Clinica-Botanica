@@ -33,6 +33,9 @@ class SalesController extends Controller
     $sale = DB::transaction(function () use ($validatedData) {
         $sale = Sale::create([
             'sale_date' => now(),
+            'total_amount' => collect($validatedData['items'])->sum(function ($item) {
+                return $item['quantity'] * $item['price'];
+            }),
             'client_name' => $validatedData['client_name'] ?? 'Cliente General',
             'created_by' => Auth::id(),
         ]);

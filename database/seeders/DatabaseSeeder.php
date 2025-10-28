@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use App\Models\Users\Module;
+use App\Models\Patients\Patient;
 
 class DatabaseSeeder extends Seeder
 {
@@ -72,6 +73,11 @@ class DatabaseSeeder extends Seeder
                 'access_route_name' => $module['access_route_name'],
                 'icon' => $module['icon'],
             ]);
+        }
+
+        // Pacientes demo
+        if (Patient::count() === 0) {
+            Patient::factory()->count(25)->create();
         }
     }
 }

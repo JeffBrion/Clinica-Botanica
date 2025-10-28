@@ -6,15 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Suppliers\SupplierProduct;
 use App\Models\User;
 
+use Everth\UserStamps\UserStampsTrait;
+
 class InventoryAdded extends Model
 {
+    use UserStampsTrait;
+
     protected $table = 'inventory_added';
 
     protected $fillable = [
         'supplier_product_id',
         'quantity',
         'reason',
-        'added_by',
+
     ];
 
     public function supplierProduct()
@@ -22,8 +26,4 @@ class InventoryAdded extends Model
         return $this->belongsTo(SupplierProduct::class);
     }
 
-    public function addedBy()
-    {
-        return $this->belongsTo(User::class, 'added_by');
-    }
 }

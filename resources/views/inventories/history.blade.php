@@ -36,7 +36,7 @@
                                     <td>{{ $entry->supplierProduct->supplier->name }}</td>
                                     <td>{{ $entry->created_at }}</td>
                                     <td>{{ $entry->reason }}</td>
-                                    <td>{{ $entry->addedBy->name }}</td>
+                                    <td>{{ $entry->create_by ?? 'admin'}}</td>
                                     <td>Agregado</td>
                                 </tr>
                             @endforeach
@@ -45,9 +45,9 @@
                                     <td>{{ $entry->supplierProduct->item->name }}</td>
                                     <td>{{ $entry->quantity }}</td>
                                     <td>{{ $entry->supplierProduct->supplier->name }}</td>
-                                    <td>{{ $entry->deleted_at }}</td>
+                                    <td>{{ $entry->created_at}}</td>
                                     <td>{{ $entry->reason }}</td>
-                                    <td>{{ $entry->deletedBy->name }}</td>
+                                    <td>{{ $entry->create_by ?? 'admin' }}</td>
                                     <td>Eliminado</td>
                                 </tr>
                             @endforeach

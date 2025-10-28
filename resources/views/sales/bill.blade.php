@@ -1,6 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
+<x-sub-navbar :links="[
+    ['route' => 'sales.index', 'name' => 'Realizar Venta', 'active' => false],
+    ['route' => 'sales.history', 'name' => 'Ventas', 'active' => false],
+]"/>
 
 <script>
     document.getElementById('toggle-form').addEventListener('click', function() {

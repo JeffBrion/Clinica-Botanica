@@ -8,6 +8,7 @@ use Everth\UserStamps\UserStampsTrait;
 class Category extends Model
 {
     use UserStampsTrait;
+    
     protected $fillable = [
         'name',
         'description',

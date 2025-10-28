@@ -5,16 +5,18 @@ namespace App\Models\Inventories;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Suppliers\SupplierProduct;
 use App\Models\User;
+use Everth\UserStamps\UserStampsTrait;
 
 class InventoryEntry extends Model
 {
+    use UserStampsTrait;
     protected $table = 'inventory_entries';
 
     protected $fillable = [
         'supplier_product_id',
         'quantity',
         'reason',
-        'created_by',
+
     ];
 
     public function supplierProduct()
@@ -22,8 +24,5 @@ class InventoryEntry extends Model
         return $this->belongsTo(SupplierProduct::class);
     }
 
-    public function createdBy()
-    {
-        return $this->belongsTo(User::class, 'created_by');
-    }
+
 }

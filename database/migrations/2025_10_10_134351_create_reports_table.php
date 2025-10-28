@@ -11,17 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('deleted_inventories', function (Blueprint $table) {
+        Schema::create('reports', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('supplier_product_id')->constrained();
-            $table->integer('quantity');
-            $table->string('reason')->nullable();
-        
+
+            $table->string('report_type');
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->date('create_date'); // Store report data as JSON or serialized format
 
             $table->rememberToken();
             $table->nullableUserStamps();
             $table->timestamps();
-
         });
     }
 
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('deleted_inventories');
+        Schema::dropIfExists('reports');
     }
 };

@@ -100,13 +100,16 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('test')->middleware('CheckRoles:tests')->group(function () {
         Route::get('index', [TestController::class, 'index'])->name('test.index');
+        Route::get('show', [TestController::class, 'show'])->name('test.show');
         Route::get('show{test}', [TestController::class, 'create'])->name('test.create');
         Route::post('store', [TestController::class, 'store'])->name('test.store');
+        Route::get('prescription/{consultation}', [TestController::class, 'prescription'])->name('test.prescription');
         Route::delete('delete/{test}', [TestController::class, 'delete'])->name('test.delete');
     });
 
     Route::prefix('reports')->middleware('CheckRoles:reports')->group(function () {
         route::get('index', [ReportController::class, 'index'])->name('reports.index');
-
+        route::post('generate', [ReportController::class, 'generate'])->name('reports.generate');
+        route::get('show/{report}', [ReportController::class, 'show'])->name('reports.show');
     });
 });

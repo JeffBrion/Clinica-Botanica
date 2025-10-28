@@ -13,8 +13,11 @@ return new class extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
+
             $table->date('sale_date');
+            $table->decimal('total_amount', 10, 2);
             $table->string('client_name')->nullable();
+
             $table->rememberToken();
             $table->nullableUserStamps();
             $table->timestamps();
@@ -26,6 +29,8 @@ return new class extends Migration
             $table->foreignId('inventory_id')->constrained('inventories')->onDelete('cascade');
             $table->integer('quantity');
             $table->decimal('price', 10, 2);
+
+            $table->rememberToken();
             $table->nullableUserStamps();
             $table->timestamps();
         });
