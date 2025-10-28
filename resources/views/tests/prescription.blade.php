@@ -66,7 +66,7 @@
 
     <div style="text-align: center; margin-top: 30px;">
         <button onclick="printA6()" style="background-color: #4CAF50; color: white; padding: 12px 24px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; font-weight: bold;">
-            🖨️ Imprimir Receta (A6 Vertical)
+            🖨️ Imprimir Receta
         </button>
     </div>
 </div>
@@ -75,18 +75,18 @@
 function printA6() {
     const el = document.querySelector('.invoice');
     if (!el) return;
-    el.classList.add('a6-format');
+    el.classList.add('a5-format');
     window.print();
-    setTimeout(() => el.classList.remove('a6-format'), 100);
+    setTimeout(() => el.classList.remove('a5-format'), 100);
 }
 </script>
 
 <style>
 @media print {
-    @page { size: A6 portrait; margin: 0.5cm; }
+    @page { size: A5 portrait; margin: 0.5cm; }
     body * { visibility: hidden; }
     .invoice, .invoice * { visibility: visible; }
-    /* A6 portrait is 105mm × 148mm */
+
     .invoice { position: absolute; left: 0; top: 0; width: 105mm; height: 148mm; padding: 10px; border: none; box-shadow: none; font-size: 10px; }
     .logo-img { max-width: 100px !important; height: auto; }
     h1{ font-size: 12px; }
