@@ -82,11 +82,11 @@ class ReportController extends Controller
                 ->orderBy('inventory_added.created_at', 'desc')
                 ->get()
                 ->map(function ($row) use ($report) {
-                    $row->report_type = $report->report_type; // Anexar tipo al item
+                    $row->report_type = $report->report_type;
                     return $row;
                 });
         } elseif ($report->report_type === 'Movimientos de Inventario') {
-            // Solo mostrar movimientos eliminados desde deleted_inventories
+          
             $datas = DB::table('deleted_inventories')
                 ->join('supplier_products', 'deleted_inventories.supplier_product_id', '=', 'supplier_products.id')
                 ->leftJoin('items', 'supplier_products.item_id', '=', 'items.id')

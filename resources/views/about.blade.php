@@ -23,7 +23,7 @@
                             Este proyecto es un sistema de gestión de inventarios desarrollado para la administración de productos, proveedores y entradas en una clínica botánica.
                             Permite visualizar, registrar y gestionar productos con información detallada como precios, cantidades y proveedores asociados.
                         </p>
-                        <small class="text-muted">Proyecto de titulación elaborado por Jefferson Briones, Edward Milan y Eddy Perez.</small>
+                        <small class="text-muted">Proyecto de titulación elaborado por Jefferson Briones, Edward Milan y Eddy Sevilla.</small>
                     </div>
 
                     <div class="row g-3">
