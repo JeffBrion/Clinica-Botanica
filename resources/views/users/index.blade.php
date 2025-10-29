@@ -3,18 +3,22 @@
 @section('content')
     <div class="container">
         <style>
-            .hero-users { background: linear-gradient(135deg, #22c55e 0%, #4f46e5 100%); color: #fff; }
-            .table-sticky thead th { position: sticky; top: 0; z-index: 2; background: #f8fafc; }
+            /* Alineado al estilo de Items */
+            .users-hero{ background: linear-gradient(135deg, rgba(25,135,84,0.10) 0%, rgba(25,135,84,0.02) 100%); border-bottom: 1px solid rgba(0,0,0,0.05); }
+            .hero-icon{ width: 40px; height: 40px; background:#198754; color:#fff; font-size: 20px; }
+            thead.sticky-top th{ position: sticky; top: 0; z-index: 1; }
         </style>
 
-        <div class="card border-0 shadow rounded-4 overflow-hidden mt-4">
-            <div class="hero-users p-4 p-md-5 d-flex align-items-center justify-content-between">
-                <div class="me-4">
-                    <span class="badge rounded-pill bg-white text-dark mb-2" style="opacity:.9">Usuarios</span>
-                    <h2 class="h4 mb-2">Crear usuario</h2>
-                    <p class="mb-0" style="color: rgba(255,255,255,.9)">Completa los datos y asigna módulos según el rol.</p>
+        <!-- Formulario: Crear usuario (estilo Items) -->
+        <div class="card border-0 shadow-sm mt-4 mb-3">
+            <div class="card-header bg-white border-0 pb-0">
+                <div class="d-flex align-items-center gap-2">
+                    <div class="hero-icon rounded-circle d-inline-flex align-items-center justify-content-center"><i class='bx bxs-user-detail'></i></div>
+                    <div>
+                        <h5 class="mb-0">Crear usuario</h5>
+                        <small class="text-muted">Completa los datos y asigna módulos según el rol.</small>
+                    </div>
                 </div>
-                <div class="d-none d-md-block"><i class='bx bxs-user-detail' style="font-size:64px; opacity:.9"></i></div>
             </div>
             <div class="card-body">
                 <form action="{{ route('users.store') }}" class="row g-3" method="POST" autocomplete="off">
@@ -69,21 +73,34 @@
             </div>
         </div>
 
-        <div class="card border-0 shadow rounded-4 mt-4">
-            <div class="card-header bg-white d-flex align-items-center justify-content-between">
-                <div style="min-width: 260px" class="me-3">
-                    <x-search-bar :table="'users_table'"/>
+        <div class="card border-0 shadow-sm overflow-hidden mt-1">
+            <div class="users-hero d-flex flex-wrap align-items-center justify-content-between p-3">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="hero-icon rounded-circle d-inline-flex align-items-center justify-content-center"><i class='bx bx-list-ul'></i></div>
+                    <div>
+                        <h5 class="mb-1">Usuarios</h5>
+                        <div class="text-muted small">Listado de usuarios registrados.</div>
+                    </div>
                 </div>
-                <h5 class="mb-0">Usuarios</h5>
+                <div class="d-flex align-items-center gap-2 mt-2 mt-md-0">
+                    <span class="badge rounded-pill bg-success-subtle text-success fw-semibold px-3 py-2">
+                        <i class='bx bx-layer me-1'></i> {{ method_exists($users, 'total') ? $users->total() : count($users) }} en total
+                    </span>
+                </div>
             </div>
-            <div class="card-body p-0">
-                <div class="table-responsive table-sticky">
-                    <table class="table table-hover align-middle mb-0" id="users_table">
-                        <thead class="table-light">
+            <div class="card-body">
+                <div class="row g-2 mb-2">
+                    <div class="col-12">
+                        <x-search-bar :table="'users_table'"/>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover m-0" id="users_table">
+                        <thead class="table-light sticky-top">
                             <tr>
                                 <th>Nombre</th>
                                 <th>Rol</th>
-                                <th class="text-end">Opciones</th>
+                                <th style="width: 160px;" class="text-end">Opciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -98,17 +115,17 @@
                                         @endif
                                     </td>
                                     <td class="text-end">
-                                        <a href="{{route('users.show', ['user' => $user])}}" class="btn btn-sm btn-outline-primary"><i class='bx bxs-show me-1'></i> Ver</a>
-                                        <button class="delete-button btn btn-sm btn-outline-danger" data-url="{{route('users.delete', ['user' => $user])}}"><i class='bx bxs-trash-alt me-1'></i> Eliminar</button>
+                                        <a href="{{route('users.show', ['user' => $user])}}" class="btn btn-outline-primary btn-sm" title="Ver"><i class='bx bxs-show'></i> Ver</a>
+                                        <button class="delete-button btn btn-outline-danger btn-sm" data-url="{{route('users.delete', ['user' => $user])}}" title="Eliminar"><i class='bx bxs-trash-alt'></i></button>
                                     </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
                 </div>
-            </div>
-            <div class="card-footer bg-white">
-                {{ $users->links() }}
+                <div class="mt-2">
+                    {{ $users->links() }}
+                </div>
             </div>
         </div>
 

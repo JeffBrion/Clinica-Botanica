@@ -3,20 +3,22 @@
 @section('content')
 <div class="container">
     <style>
-        .hero-user { background: linear-gradient(135deg, #22c55e 0%, #4f46e5 100%); color:#fff; }
+
+        .hero-icon{ width: 40px; height: 40px; background:#198754; color:#fff; font-size: 20px; }
         .table-sticky thead th { position: sticky; top: 0; z-index: 2; background: #f8fafc; }
     </style>
 
-    <div class="card border-0 shadow rounded-4 overflow-hidden mt-4">
-        <div class="hero-user p-4 p-md-5 d-flex align-items-center justify-content-between">
-            <div class="me-4">
-                <span class="badge rounded-pill bg-white text-dark mb-2" style="opacity:.9">Usuario</span>
-                <h2 class="h4 mb-1">{{ $user->name }}</h2>
-                @if(!empty($user->role))
-                    <span class="badge bg-primary-subtle text-primary" style="border:1px solid rgba(59,130,246,.25)">{{ $user->role }}</span>
-                @endif
+    <div class="card border-0 shadow-sm mt-4">
+        <div class="card-header bg-white border-0 pb-0">
+            <div class="d-flex align-items-center gap-2">
+                <div class="hero-icon rounded-circle d-inline-flex align-items-center justify-content-center"><i class='bx bxs-user'></i></div>
+                <div>
+                    <h5 class="mb-1">{{ $user->name }}</h5>
+                    @if(!empty($user->role))
+                        <span class="badge bg-primary-subtle text-primary" style="border:1px solid rgba(59,130,246,.25)">{{ $user->role }}</span>
+                    @endif
+                </div>
             </div>
-            <div class="d-none d-md-block"><i class='bx bxs-user' style="font-size:64px; opacity:.9"></i></div>
         </div>
         <div class="card-body">
             <form action="{{route('users.update', ['user' => $user])}}" class="row g-3" method="POST" autocomplete="off">
@@ -44,9 +46,15 @@
         </div>
     </div>
 
-    <div class="card border-0 shadow rounded-4 mt-4">
-        <div class="card-header bg-white d-flex align-items-center justify-content-between">
-            <h5 class="mb-0">Módulos asignados</h5>
+    <div class="card border-0 shadow-sm mt-4">
+        <div class="card-header bg-white border-0 pb-0">
+            <div class="d-flex align-items-center gap-2">
+                <div class="hero-icon rounded-circle d-inline-flex align-items-center justify-content-center"><i class='bx bx-grid-alt'></i></div>
+                <div>
+                    <h5 class="mb-0">Módulos asignados</h5>
+                    <small class="text-muted">Accesos actuales del usuario.</small>
+                </div>
+            </div>
         </div>
         <div class="card-body p-0">
             <div class="table-responsive table-sticky">

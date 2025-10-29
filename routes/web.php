@@ -115,4 +115,7 @@ Route::middleware('auth')->group(function () {
         route::post('generate', [ReportController::class, 'generate'])->name('reports.generate');
         route::get('show/{report}', [ReportController::class, 'show'])->name('reports.show');
     });
+
+    // Página informativa "Acerca de"
+    Route::view('about', 'about')->name('about');
 });

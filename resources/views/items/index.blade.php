@@ -6,7 +6,6 @@
 ]"/>
 <div class="container mt-3">
     <div class="row g-3">
-        <!-- Formulario: Nuevo producto -->
         <div class="col-12">
             <div class="card border-0 shadow-sm">
                 <div class="card-header bg-white border-0 pb-0">
