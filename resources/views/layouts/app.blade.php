@@ -15,6 +15,46 @@
             border-radius: 50px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
         }
+
+        /* Elevación sutil global para mejorar el contraste sobre fondo blanco */
+        .card{
+            box-shadow: 0 8px 18px rgba(2, 6, 23, 0.06);
+        }
+        /* Contenedor de tablas con leve sombra y fondo blanco */
+        .table-responsive{
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 6px 16px rgba(2, 6, 23, 0.05);
+        }
+        .table{ margin-bottom: 0; }
+        /* Encabezado de tabla ligeramente diferenciado */
+        .table thead th{ border-bottom-color: rgba(2,6,23,0.06); }
+
+        /* Otros componentes comunes */
+        .list-group{
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 6px 16px rgba(2, 6, 23, 0.05);
+        }
+        .modal-content{
+            border: 0;
+            border-radius: 14px;
+            box-shadow: 0 20px 40px rgba(2, 6, 23, 0.15);
+        }
+        .dropdown-menu{
+            border: 0;
+            border-radius: 12px;
+            box-shadow: 0 12px 24px rgba(2, 6, 23, 0.12);
+        }
+        .offcanvas{
+            box-shadow: 0 24px 48px rgba(2, 6, 23, 0.18);
+        }
+
+        /* Utilidades opcionales para usar donde se requiera */
+        .shadow-soft{ box-shadow: 0 8px 18px rgba(2, 6, 23, 0.06) !important; }
+        .shadow-soft-lg{ box-shadow: 0 16px 32px rgba(2, 6, 23, 0.10) !important; }
+        .shadow-hover{ transition: box-shadow .2s ease; }
+        .shadow-hover:hover{ box-shadow: 0 14px 28px rgba(2, 6, 23, 0.12) !important; }
     </style>
 
     @yield('head')
