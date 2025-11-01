@@ -116,6 +116,15 @@ Route::middleware('auth')->group(function () {
         route::get('show/{report}', [ReportController::class, 'show'])->name('reports.show');
     });
 
+    // Respaldos (Backups)
+    Route::prefix('backups')->middleware('CheckRoles:backups')->group(function () {
+        Route::get('index', [\App\Http\Controllers\Backups\BackupController::class, 'index'])->name('backups.index');
+        Route::post('store', [\App\Http\Controllers\Backups\BackupController::class, 'store'])->name('backups.store');
+        Route::get('download/{name}', [\App\Http\Controllers\Backups\BackupController::class, 'download'])->name('backups.download');
+        Route::delete('delete/{name}', [\App\Http\Controllers\Backups\BackupController::class, 'destroy'])->name('backups.destroy');
+        Route::post('import', [\App\Http\Controllers\Backups\BackupController::class, 'import'])->name('backups.import');
+    });
+
     // Página informativa "Acerca de"
     Route::view('about', 'about')->name('about');
 });
