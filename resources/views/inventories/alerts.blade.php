@@ -51,7 +51,7 @@
 
             <hr class="my-4" />
 
-            <h6 class="text-uppercase text-muted mb-2"><i class='bx bx-time-five me-1'></i> Próximos a vencer@endisset</h6>
+            <h6 class="text-uppercase text-muted mb-2"><i class='bx bx-time-five me-1'></i> Próximos a vencer</h6>
             @include('inventories.partials._expiring_alerts')
 
             <div class="d-flex justify-content-end mt-3">

@@ -38,7 +38,7 @@ class BackupController extends Controller
 
     public function store(Request $request)
     {
-        $type = $request->input('type', 'sql'); // 'sql' | 'json'
+        $type = $request->input('type', 'sql'); // 'sql' | 'json' | 'images'
         $timestamp = now()->format('Ymd_His');
 
         if ($type === 'sql') {
@@ -53,6 +53,18 @@ class BackupController extends Controller
                 return back()->with('message', 'No se pudo generar SQL, se creó respaldo JSON como alternativa.')->with('type', 'warning');
             }
             return back()->with('message', 'Respaldo SQL generado correctamente.')->with('type', 'success');
+        } elseif ($type === 'images') {
+            $name = "images_{$timestamp}.zip";
+            $target = storage_path('app/'.$this->dir.'/'.$name);
+            $imagesPath = public_path('img');
+            if (!is_dir($imagesPath)) {
+                return back()->with('message', 'La carpeta de imágenes no existe (public/img).')->with('type', 'danger');
+            }
+            $ok = $this->zipDirectory($imagesPath, $target);
+            if (!$ok) {
+                return back()->with('message', 'No se pudo generar el respaldo de imágenes o la carpeta está vacía.')->with('type', 'warning');
+            }
+            return back()->with('message', 'Respaldo de imágenes generado correctamente.')->with('type', 'success');
         } else {
             $name = "backup_{$timestamp}.json";
             $target = storage_path('app/'.$this->dir.'/'.$name);
@@ -80,11 +92,13 @@ class BackupController extends Controller
 
     public function import(Request $request)
     {
+        // "truncate" vendrá como checkbox ("on") cuando está marcado.
+        // Usamos accepted para no fallar si no viene y convertir con boolean().
         $request->validate([
             'backup_file' => 'required|file',
-            'truncate' => 'nullable|boolean',
+            'truncate' => 'sometimes|accepted',
         ]);
-        $truncate = (bool) $request->input('truncate', true);
+        $truncate = $request->boolean('truncate');
         $file = $request->file('backup_file');
         $ext = strtolower($file->getClientOriginalExtension());
         $path = $file->storeAs($this->dir, 'import_'.now()->format('Ymd_His').'.'.$ext);
@@ -131,31 +145,42 @@ class BackupController extends Controller
         if (!$conn || ($conn['driver'] ?? '') !== 'mysql') { return false; }
 
         $host = $conn['host'] ?? '127.0.0.1';
-        $port = $conn['port'] ?? 3306;
+        $port = (string)($conn['port'] ?? 3306);
         $db   = $conn['database'] ?? '';
         $user = $conn['username'] ?? '';
         $pass = $conn['password'] ?? '';
 
         if (!$db || !$user) { return false; }
 
-        $cmd = [
-            'sh', '-c',
-            sprintf(
-                'MYSQL_PWD=%s mysqldump --user=%s --host=%s --port=%d --routines --triggers --single-transaction --skip-lock-tables %s > %s',
-                escapeshellarg($pass),
-                escapeshellarg($user),
-                escapeshellarg($host),
-                (int)$port,
-                escapeshellarg($db),
-                escapeshellarg($target)
-            )
+        // Ejecutar mysqldump sin usar shell y redirección para evitar archivos vacíos por fallas de PATH/quoting
+        $args = [
+            'mysqldump',
+            "--user={$user}",
+            "--host={$host}",
+            "--port={$port}",
+            '--routines',
+            '--triggers',
+            '--single-transaction',
+            '--skip-lock-tables',
+            $db,
         ];
 
         try {
-            $process = new Process($cmd, null, [ 'MYSQL_PWD' => $pass ]);
+            $process = new Process($args, null, ['MYSQL_PWD' => $pass]);
             $process->setTimeout(300);
             $process->run();
-            return $process->isSuccessful() && file_exists($target) && filesize($target) > 0;
+
+            if (!$process->isSuccessful()) {
+                return false;
+            }
+
+            $output = $process->getOutput();
+            if ($output === '' || $output === null) {
+                return false;
+            }
+
+            @file_put_contents($target, $output);
+            return file_exists($target) && filesize($target) > 0;
         } catch (\Throwable $e) {
             return false;
         }
@@ -187,5 +212,36 @@ class BackupController extends Controller
         foreach ($tables as $table) {
             DB::table($table)->truncate();
         }
+    }
+
+    /**
+     * Comprime un directorio en un archivo ZIP. Devuelve true si se creó con contenido.
+     */
+    protected function zipDirectory(string $sourceDir, string $zipTarget): bool
+    {
+        $sourceDir = rtrim($sourceDir, DIRECTORY_SEPARATOR);
+        if (!is_dir($sourceDir)) { return false; }
+
+        // Recolectar archivos
+        $files = [];
+        $rii = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($sourceDir, \FilesystemIterator::SKIP_DOTS));
+        foreach ($rii as $file) {
+            if ($file->isDir()) continue;
+            $files[] = $file->getPathname();
+        }
+        if (empty($files)) { return false; }
+
+        // Crear ZIP
+        $zip = new \ZipArchive();
+        if ($zip->open($zipTarget, \ZipArchive::CREATE | \ZipArchive::OVERWRITE) !== true) {
+            return false;
+        }
+        $baseLen = strlen($sourceDir) + 1;
+        foreach ($files as $path) {
+            $local = substr($path, $baseLen);
+            $zip->addFile($path, $local);
+        }
+        $zip->close();
+        return file_exists($zipTarget) && filesize($zipTarget) > 0;
     }
 }

@@ -47,7 +47,7 @@
                         <div class="input-group">
                             <span class="input-group-text"><i class='bx bx-category'></i></span>
                             <select class="form-select" id="report_type" name="report_type" required>
-                                {{-- <option value="sales">Ventas</option> --}}
+                                <option value="sales">Ventas</option>
                                 <option value="supplier_income">Ingresos de Proveedores</option>
                                 <option value="inventory_movements">Productos eliminados</option>
                             </select>

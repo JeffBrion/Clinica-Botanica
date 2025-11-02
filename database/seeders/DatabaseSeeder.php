@@ -45,18 +45,18 @@ class DatabaseSeeder extends Seeder
                 'access_route_name' => 'inventories.index',
                 'icon' => 'bx bx-archive nav_icon',
             ],
-            // [
-            //     'name' => 'Ventas',
-            //     'internal_name' => 'sales',
-            //     'access_route_name' => 'sales.index',
-            //     'icon' => 'bx bx-cart nav_icon',
-            // ],
-            //   [
-            //     'name' => 'Consultas',
-            //     'internal_name' => 'tests',
-            //     'access_route_name' => 'test.index',
-            //     'icon' => 'bx bx-plus-medical bx-rotate-90 nav_icon',
-            // ],
+            [
+                 'name' => 'Ventas',
+                 'internal_name' => 'sales',
+                 'access_route_name' => 'sales.index',
+                 'icon' => 'bx bx-cart nav_icon',
+             ],
+               [
+                 'name' => 'Consultas',
+                 'internal_name' => 'tests',
+                 'access_route_name' => 'test.index',
+                 'icon' => 'bx bx-plus-medical bx-rotate-90 nav_icon',
+             ],
             [
                 'name' => 'Reportes',
                 'internal_name' => 'reports',
@@ -75,12 +75,6 @@ class DatabaseSeeder extends Seeder
                 'access_route_name' => 'inventories.alerts',
                 'icon' => 'bx bx-bell nav_icon',
             ],
-            [
-                'name' => 'Respaldos',
-                'internal_name' => 'backups',
-                'access_route_name' => 'backups.index',
-                'icon' => 'bx bx-cloud-upload nav_icon',
-            ]
 
         ];
 

@@ -16,21 +16,17 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
         }
 
-        /* Elevación sutil global para mejorar el contraste sobre fondo blanco */
         .card{
             box-shadow: 0 8px 18px rgba(2, 6, 23, 0.06);
         }
-        /* Contenedor de tablas con leve sombra y fondo blanco */
         .table-responsive{
             background: #ffffff;
             border-radius: 12px;
             box-shadow: 0 6px 16px rgba(2, 6, 23, 0.05);
         }
         .table{ margin-bottom: 0; }
-        /* Encabezado de tabla ligeramente diferenciado */
         .table thead th{ border-bottom-color: rgba(2,6,23,0.06); }
 
-        /* Otros componentes comunes */
         .list-group{
             background: #ffffff;
             border-radius: 12px;
@@ -50,7 +46,6 @@
             box-shadow: 0 24px 48px rgba(2, 6, 23, 0.18);
         }
 
-        /* Utilidades opcionales para usar donde se requiera */
         .shadow-soft{ box-shadow: 0 8px 18px rgba(2, 6, 23, 0.06) !important; }
         .shadow-soft-lg{ box-shadow: 0 16px 32px rgba(2, 6, 23, 0.10) !important; }
         .shadow-hover{ transition: box-shadow .2s ease; }
@@ -73,6 +68,9 @@
         .avatar-circle{width:32px;height:32px;border-radius:50%;background:#198754;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:16px}
         .dropdown-menu .dropdown-item{font-size:.92rem}
         .dropdown-menu .dropdown-item i{width:18px;margin-right:.35rem}
+    /* Wrapper fijo para notificaciones/toasts debajo del navbar */
+    :root{ --navbar-offset: 64px; }
+    #notifications-wrap{ position: fixed; right: 1rem; top: calc(var(--navbar-offset) + 8px); z-index: 1080; }
         @media (max-width: 1400px){
             .navbar-modern .nav-link{font-size:.88rem;padding:.35rem .55rem}
             .navbar-brand .app-name{font-size:.95rem}
@@ -88,7 +86,6 @@
         <div class="container-fluid px-2">
             <a class="navbar-brand d-flex align-items-center gap-2" href="/">
                 <img src="/img/Logo.png" alt="{{ config('app.name') }}" width="40" class="d-inline-block align-text-top">
-                <span class="app-name d-none d-sm-inline">{{ config('app.name') }}</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -135,45 +132,8 @@
             </div>
         </div>
     </nav>
-    {{-- <div class="l-navbar" id="nav-bar">
-        <nav class="nav d-flex flex-column justify-content-between" id="nav">
-            <div>
-                <div class="nav_list">
-                    <a href="/" class="nav_logo logo-toggle nav_module_name"><img src="/img/Logo.png" id="imagen2" width="120"/></a>
-                </div>
-                <div class="nav_list mt-5">
-                    @php
-                        $modules = null;
-                        if (Auth()->user()->role == 'Administrador')
-                        {
-                            $modules = App\Models\Users\Module::all();
-                        }
-                        else
-                        {
-                            $modules = Auth()->user()->modules();
-                        }
-                    @endphp
-                    @foreach ($modules as $module)
-                        <a href="{{Route::has($module->access_route_name) ? route($module->access_route_name) : ''}}" class="nav_link"><i class='bx {{$module->icon}} nav_icon'></i><span class="nav_name nav_module_name">{{$module->name}}</span></a>
-                    @endforeach
-                </div>
-            </div>
-            <div style="" class="d-flex flex-column justify-content-end gap-3 align-items-center">
-                <div class="nav_list mt-2 w-100">
-                    <a href="{{Route('users.showChangePassword')}}" class="nav_link"><i class='bx bx-key nav_icon'></i><span class="nav_name nav_module_name">Cambiar Contraseña</span></a>
-                </div>
-                <div class="d-flex flex-column w-100">
-                    <div class="d-flex flex-column post_user justify-content-between align-items-start">
 
-                        <div class="d-flex  justify-content-between w-100 p-2">
-                            <span class="nav_module_name">{{Auth()->user()->name}}</span>
-                            <a class="d-flex justify-content-between align-items-center text-decoration-none" href="{{route('logout')}}"> <i class='bx bxs-x-circle icon_block' ></i></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </nav>
-    </div> --}}
+
 
 
     @if ($errors->any())
@@ -188,6 +148,21 @@
     </main>
 
     <script src="/js/bootstrap.bundle.js"></script>
+    <script>
+        // Calcula dinámicamente la altura del navbar (y barra superior) para posicionar las notificaciones debajo
+        (function(){
+            function setOffset(){
+                var bar = document.querySelector('.gradient-top-bar');
+                var nav = document.querySelector('.navbar-modern');
+                var offset = 0;
+                if(bar) offset += (bar.offsetHeight || 0);
+                if(nav) offset += (nav.getBoundingClientRect().height || 0);
+                document.documentElement.style.setProperty('--navbar-offset', offset + 'px');
+            }
+            window.addEventListener('load', setOffset);
+            window.addEventListener('resize', setOffset);
+        })();
+    </script>
     @yield('scripts')
     @yield('scripts2')
     @yield('scripts3')

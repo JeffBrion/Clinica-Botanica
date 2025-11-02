@@ -22,6 +22,11 @@
                     <input type="hidden" name="type" value="json">
                     <button class="btn btn-outline-success"><i class='bx bx-data me-1'></i> Generar JSON</button>
                 </form>
+                <form method="POST" action="{{ route('backups.store') }}">
+                    @csrf
+                    <input type="hidden" name="type" value="images">
+                    <button class="btn btn-outline-secondary"><i class='bx bx-image-alt me-1'></i> Respaldar Imágenes</button>
+                </form>
             </div>
         </div>
         <div class="card-body">
@@ -80,9 +85,7 @@
                             </div>
                             <button class="btn btn-warning"><i class='bx bx-import me-1'></i> Importar</button>
                         </form>
-                        <div class="small text-muted mt-2">
-                            Nota: Para respaldos automáticos, podemos programar una tarea diaria en el servidor (cron) que ejecute este proceso.
-                        </div>
+
                     </div>
                 </div>
             </div>
